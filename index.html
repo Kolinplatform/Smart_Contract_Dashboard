@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Kolin private - Wallet </title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="https://demo.kolinplatform.com/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="https://demo.kolinplatform.com/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="https://demo.kolinplatform.com/vendors/css/vendor.bundle.addons.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="https://demo.kolinplatform.com/css/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="https://demo.kolinplatform.com/images/favicon.png" />
+</head>
+<body>
+  <div class="container-scroller">
+    <!-- partial:https://demo.kolinplatform.com/partials/_navbar.html -->
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+        <a class="navbar-brand brand-logo" href="https://demo.kolinplatform.com/index.html">
+          <img src="https://demo.kolinplatform.com/images/logo.svg" alt="logo" />
+        </a>
+        <a class="navbar-brand brand-logo-mini" href="https://demo.kolinplatform.com/index.html">
+          <img src="https://demo.kolinplatform.com/images/logo-mini.svg" alt="logo" />
+        </a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center">
+        <ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
+           <li class="nav-item">
+            <a href="https://demo.kolinplatform.com/pages/schedule/index.html" class="nav-link"><i class="menu-icon mdi mdi-calendar-clock"></i>Schedule
+              <span class="badge badge-primary ml-1">New</span>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a href="https://demo.kolinplatform.com/pages/exchange/index.html" class="nav-link">
+              <i class="mdi mdi-elevation-rise"></i>Exchange
+			  <span class="badge badge-primary ml-1">New</span></a>
+          </li>
+        <!--   <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="mdi mdi-bookmark-plus-outline"></i>Evaluations
+			  <span class="badge badge-primary ml-1">New</span></a>
+          </li> -->
+        </ul>
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item dropdown">
+            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <i class="mdi mdi-file-document-box"></i>
+              <span class="count">7</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+              <div class="dropdown-item">
+                <p class="mb-0 font-weight-normal float-left">You have 7 unread mails
+                </p>
+                <span class="badge badge-info badge-pill float-right">View all</span>
+              </div>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <img src="https://demo.kolinplatform.com/images/faces/face4.jpg" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium text-dark">David Grey
+                    <span class="float-right font-weight-light small-text">1 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text">
+                    New work due
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <img src="https://demo.kolinplatform.com/images/faces/face2.jpg" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium text-dark">Tim Cook
+                    <span class="float-right font-weight-light small-text">15 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text">
+                    Can we work together?
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <img src="https://demo.kolinplatform.com/images/faces/face3.jpg" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium text-dark"> Johnson
+                    <span class="float-right font-weight-light small-text">18 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text">
+                    Upcoming new event
+                  </p>
+                </div>
+              </a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+              <i class="mdi mdi-bell"></i>
+              <span class="count">4</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+              <a class="dropdown-item">
+                <p class="mb-0 font-weight-normal float-left">You have 4 new notifications
+                </p>
+                <span class="badge badge-pill badge-warning float-right">View all</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-success">
+                    <i class="mdi mdi-alert-circle-outline mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-medium text-dark">Application Error</h6>
+                  <p class="font-weight-light small-text">
+                    Just now
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-warning">
+                    <i class="mdi mdi-comment-text-outline mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-medium text-dark">Settings</h6>
+                  <p class="font-weight-light small-text">
+                    Private message
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-info">
+                    <i class="mdi mdi-email-outline mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-medium text-dark">New work finished</h6>
+                  <p class="font-weight-light small-text">
+                    2 days ago
+                  </p>
+                </div>
+              </a>
+            </div>
+          </li>
+          <li class="nav-item dropdown d-none d-xl-inline-block">
+            <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <span class="profile-text">Hello, <span class="profile-name">Mauricio Estephan</span> !</span>
+              <img class="img-xs rounded-circle" src="https://demo.kolinplatform.com/images/faces/face1.jpg" alt="Profile image">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+              <a class="dropdown-item p-0">
+                <div class="d-flex border-bottom">
+                  <div class="py-3 px-4 d-flex align-items-center justify-content-center">
+                    <i class="mdi mdi-bookmark-plus-outline mr-0 text-gray"></i>
+                  </div>
+                  <div class="py-3 px-4 d-flex align-items-center justify-content-center border-left border-right">
+                    <i class="mdi mdi-account-outline mr-0 text-gray"></i>
+                  </div>
+                  <div class="py-3 px-4 d-flex align-items-center justify-content-center">
+                    <i class="mdi mdi-alarm-check mr-0 text-gray"></i>
+                  </div>
+                </div>
+              </a>
+              <a class="dropdown-item mt-2">
+                Manage Accounts
+              </a>
+              <a class="dropdown-item">
+                Change Password
+              </a>
+              <a class="dropdown-item">
+                Check Inbox
+              </a>
+              <a href="https://demo.kolinplatform.com/pages/main/login.html" class="dropdown-item">
+                Sign Out
+              </a>
+            </div>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:https://demo.kolinplatform.com/partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item nav-profile">
+            <div class="nav-link">
+                <div class="user-wrapper">       
+                  <div class="text-wrapper">
+                    <div class="profile-image">
+                       <img src="https://demo.kolinplatform.com/images/faces/face1.jpg" alt="profile image">
+                    </div>
+                  </div>
+                </div>
+                <div class="user-wrapper">       
+                 <div class="text-wrapper">
+                  <small class="profile-name pr-2">Mauricio Estephan</small>
+                  <div>
+                    <small class="designation text-muted">Translator</small>
+                    <span class="status-indicator online"></span>
+                  </div>
+                 </div>
+                </div>
+              <a class="btn btn-success btn-block" href="#">Post job
+                <i class="mdi mdi-plus"></i>
+              </a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://demo.kolinplatform.com/index.html">
+              <i class="menu-icon mdi mdi-television"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+         <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="menu-icon mdi mdi-content-paste"></i>
+              <span class="menu-title">Search Jobs</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item">
+                  <a class="nav-link" href="https://demo.kolinplatform.com/pages/workdue/index.html"><i class="menu-icon mdi mdi-clock-alert"></i>Work Due</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://demo.kolinplatform.com/pages/workfinished/index.html"><i class="menu-icon mdi mdi-file-check"></i>Finished</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://demo.kolinplatform.com/pages/wallet/index.html">
+              <i class="menu-icon mdi mdi-wallet-travel"></i>
+              <span class="menu-title">Wallet<span class="badge badge-primary ml-1">New</span></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://demo.kolinplatform.com/pages/exchange/index.html">
+              <i class="menu-icon mdi mdi-chart-line"></i>
+              <span class="menu-title">Exchange<span class="badge badge-primary ml-1">New</span></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://demo.kolinplatform.com/pages/schedule/index.html">
+              <i class="menu-icon mdi mdi-table"></i>
+              <span class="menu-title">Schedule<span class="badge badge-primary ml-1">New</span></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://demo.kolinplatform.com/pages/games/index.html">
+              <i class="menu-icon mdi mdi-gamepad-variant"></i>
+              <span class="menu-title">Games<span class="badge badge-primary ml-1">New</span></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+              <i class="menu-icon mdi mdi-help-circle-outline"></i>
+              <span class="menu-title">Help &amp; Documentation</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item">
+                  <a class="nav-link" href="https://demo.kolinplatform.com/pages/main/blank-page.html"> Blank Page </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://demo.kolinplatform.com/pages/main/login.html"> Login </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://demo.kolinplatform.com/pages/main/register.html"> Register </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://demo.kolinplatform.com/pages/main/error-404.html"> 404 </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://demo.kolinplatform.com/pages/main/error-500.html"> 500 </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+		  <!-- content-wrapper starts -->
+        <div class="content-wrapper">
+         <!-- Content Header (Page header) -->
+    <div class="row purchace-popup">
+            <div class="col-12">
+              <span class="d-block d-md-flex align-items-center">
+                <p>This section will allow you to post a new translation job. Standard quotations will be generated regarding word count and an Escrow Smart contract will protect your funds. </p>
+                <p class="btn text-dark mx-auto d-none d-md-block"> Powered by</p>
+                <a class="btn purchase-button mt-4 mt-md-0" href="https://wavesplatform.com/technology/keeper" target="_blank">Waves<svg height="12" width="10"><path fill="#fff" d="M8,4,4,8,0,4,4,0Z"></path></svg>keeper</a>
+                <i class="mdi mdi-close popup-dismiss d-none d-md-block"></i>
+              </span>
+            </div>
+            <div class="row col-lg-12 bg-white mx-auto">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="clearfix mt-3">
+                    <div class="float-left ml-3">
+                        <img
+                        src="https://raw.githubusercontent.com/wavesplatform/waveskeeper/master/src/ui/assets/img/loader.gif"
+                        style="height: 40px"
+                      />
+                    </div>
+                    <p class="mb-0 text-right">
+                      &nbsp; Current Blockchain Height
+                    </p>
+                    <div class="float-right">
+                      <div class="fluid-container">
+                        <h3 class="font-weight-medium text-right mb-0" id="height">
+                          0
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="text-muted mt-3 mb-0">
+                    <em class="mdi mdi-timer mr-1" aria-hidden="true"></em>
+                    <strong id="date">0</strong>
+                    <script>
+                      document.getElementById("date").innerHTML = new Date();
+                    </script>
+                  </p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+              <div class="clearfix mt-3">
+                  <div class="float-left ml-3">
+                      <svg width="60" height="60">
+                        <g xmlns="http://www.w3.org/2000/svg" fill="none" fill-rule="evenodd">
+                        <path fill="#48B04C" fill-rule="nonzero" d="M15,0 C6.71554687,0 0,6.71578125 0,15 C0,23.2842188 6.71578125,30 15,30 C23.2839844,30 30,23.2842188 30,15 C30,6.71578125 23.2842188,0 15,0 Z"/>
+                        <path fill="#FFF" d="M10.0094388,18.2326531 L10.0094388,18.1571429 L12.7278061,18.1571429 C12.7278061,18.9877551 12.9543367,19.5918367 13.3318878,19.9693878 C13.7094388,20.3469388 14.2380102,20.4979592 14.917602,20.4979592 C15.5216837,20.4979592 16.0502551,20.3469388 16.3522959,20.044898 C16.6543367,19.7428571 16.8053571,19.2897959 16.8053571,18.7612245 C16.8053571,18.2326531 16.6543367,17.7795918 16.3522959,17.477551 C16.0502551,17.1755102 15.5216837,16.8734694 14.6910714,16.5714286 C13.2563776,16.0428571 12.1237245,15.5142857 11.4441327,14.8346939 C10.7645408,14.155102 10.3869898,13.2489796 10.3869898,12.0408163 C10.3869898,10.9081633 10.7645408,10.077551 11.4441327,9.32244898 C12.1237245,8.64285714 13.1053571,8.18979592 14.3135204,8.11428571 L14.3135204,6 L15.8237245,6 L15.8237245,8.11428571 C17.0318878,8.26530612 17.9380102,8.71836735 18.617602,9.47346939 C19.2971939,10.2285714 19.5992347,11.2102041 19.5992347,12.4183673 L19.5992347,12.4938776 L16.8053571,12.4938776 C16.8053571,11.8142857 16.6543367,11.2102041 16.3522959,10.8326531 C16.0502551,10.455102 15.5971939,10.2285714 14.9931122,10.2285714 C14.3890306,10.2285714 13.9359694,10.3795918 13.7094388,10.6816327 C13.407398,10.9836735 13.3318878,11.4367347 13.3318878,11.9653061 C13.3318878,12.4938776 13.4829082,12.8714286 13.784949,13.1734694 C14.0869898,13.4755102 14.6155612,13.777551 15.4461735,14.155102 C16.8808673,14.6081633 18.0135204,15.2122449 18.6931122,15.8918367 C19.4482143,16.5714286 19.7502551,17.477551 19.7502551,18.6857143 C19.7502551,19.8183673 19.3727041,20.7244898 18.6931122,21.4040816 C18.0135204,22.0836735 17.0318878,22.4612245 15.7482143,22.6122449 L15.7482143,24.5 L14.2380102,24.5 L14.2380102,22.6122449 C12.9543367,22.5367347 11.9727041,22.0836735 11.1420918,21.3285714 C10.3114796,20.5734694 9.93392857,19.5163265 10.0094388,18.1571429 L10.0094388,18.2326531 Z"/>
+                         </g>
+                      </svg>
+                  </div>
+                  <p class="mb-0 text-right">
+                    &nbsp; wUSD Balance
+                  </p>
+                  <div class="float-right">
+                    <div class="fluid-container">
+                      <h3 class="font-weight-medium text-right mb-0" id="wUSDBalance">
+                        0
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-muted mt-3 mb-0">
+                    <em class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></em>
+                    holds <strong id="percentagewUSDHolder">0</strong> % supply
+                </p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="clearfix mt-3">
+                    <div class="float-left ml-3">
+                        <svg width="60" height="60" class="">
+                          <g xmlns="http://www.w3.org/2000/svg" fill="none">
+                            <path fill="#029FE4" d="M15,0 C6.71554687,0 0,6.71578125 0,15 C0,23.2842188 6.71578125,30 15,30 C23.2839844,30 30,23.2842188 30,15 C30,6.71578125 23.2842188,0 15,0 Z"/>
+                            <path fill="#FFF" d="M9.13365546,12.708489 C8.99861678,12.708489 7.64834099,12.708489 7.64834099,12.708489 C7.5994075,12.708489 7.55613298,12.7406675 7.54204103,12.7876037 L7.00466033,14.5788357 C7.00155344,14.589266 7,14.6000291 7,14.6106813 C7,14.6342049 7.0075453,14.6575066 7.02197014,14.6769246 C7.04283067,14.7049976 7.07589684,14.7216416 7.11096029,14.7216416 C7.11096029,14.7216416 8.49408033,14.7216416 8.69547326,14.7216416 C8.68271283,14.8984014 8.67183872,15.0752721 8.67183872,15.2463728 C8.67183872,15.4727318 8.68870469,15.7031964 8.7104529,15.9327732 C8.52037792,15.9327732 7.64834099,15.9327732 7.64834099,15.9327732 C7.5994075,15.9327732 7.55613298,15.9649517 7.54204103,16.0118879 L7.00466033,17.8031199 C7.00155344,17.8135502 7,17.8242023 7,17.8349655 C7,17.8586 7.0075453,17.8817907 7.02197014,17.9012088 C7.04283067,17.9293927 7.07589684,17.9459258 7.11096029,17.9459258 C7.11096029,17.9459258 9.0608655,17.9459258 9.19645898,17.9459258 C10.2939672,20.6677817 12.9838666,22.4925237 15.9181006,22.4925237 C17.5654171,22.4925237 19.1778921,21.9247399 20.4585957,20.8936969 C20.5064196,20.8551937 20.513854,20.7852887 20.4754617,20.7376867 L19.3522107,19.3423611 C19.3336803,19.3193923 19.3069389,19.3047455 19.2776454,19.3016386 C19.2483518,19.2985317 19.2190583,19.3070757 19.1962005,19.3254951 C18.2584751,20.0804689 17.1249047,20.4794821 15.9181006,20.4794821 C14.0864791,20.4794821 12.3962209,19.5100221 11.4480652,17.9460367 C11.8261069,17.9460367 16.7837018,17.9460367 16.7837018,17.9460367 C16.8303052,17.9460367 16.8718043,17.9169651 16.8877826,17.8733577 L17.5446675,16.0820148 C17.5492169,16.0695872 17.5515471,16.0566049 17.5515471,16.0437335 C17.5515471,16.0213195 17.5446675,15.9991275 17.5315742,15.9802642 C17.5107137,15.9504159 17.4768708,15.9327732 17.4405868,15.9327732 C17.4405868,15.9327732 10.9252203,15.9327732 10.7325933,15.9327732 C10.702634,15.7054156 10.6848803,15.4753949 10.6848803,15.2463728 C10.6848803,15.0730529 10.6986394,14.8969589 10.7162821,14.7216416 C10.917897,14.7216416 16.7837018,14.7216416 16.7837018,14.7216416 C16.8303052,14.7216416 16.8718043,14.69257 16.8877826,14.6488517 L17.5446675,12.8576197 C17.5492169,12.8451921 17.5515471,12.8323207 17.5515471,12.8194493 C17.5515471,12.7970353 17.5446675,12.7748433 17.5315742,12.7558691 C17.5107137,12.7261317 17.4768708,12.708489 17.4405868,12.708489 C17.4405868,12.708489 11.7214714,12.708489 11.353638,12.708489 C12.2809332,11.0449723 14.0080301,10.0133745 15.9181006,10.0133745 C17.1247938,10.0133745 18.2583641,10.4122767 19.1959786,11.1669177 C19.2189474,11.1854481 19.2482409,11.193992 19.2774234,11.1907742 C19.306717,11.1876673 19.3334584,11.1729096 19.3519888,11.1500517 L20.4750179,9.75450414 C20.5134101,9.70679121 20.5057539,9.63688623 20.4581519,9.59849397 C19.1774482,8.56767285 17.5650842,8 15.9181006,8 C12.9063054,8.00022192 10.1914399,9.88965377 9.13365546,12.708489 Z"/>
+                          </g>
+                        </svg>
+                    </div>
+                    <p class="mb-0 text-right">
+                      &nbsp; wEUR Balance
+                    </p>
+                    <div class="float-right">
+                      <div class="fluid-container">
+                        <h3 class="font-weight-medium text-right mb-0" id="wEURBalance">
+                          0
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="text-muted mt-3 mb-0">
+                      <em class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></em>
+                      holds <strong id="percentagewEURHolder">0</strong> % supply
+                  </p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="clearfix mt-3">
+                    <div class="float-left">
+                        <svg width="60" height="60" class="">
+                            <path
+                              transform="scale(0.35)"
+                              d="M112.1,59.5c0,0-31.1,26.2-32.7,28.8c-1.1,1.8,32.7,28.8,32.7,28.8H96.6L62.7,88.3l35.9-28.8H112.1z"
+                            ></path>
+                            <polygon 
+                              fill= "red"
+                              transform="scale(0.35)"
+                              class="st0"
+                              points="80.6,67.3 61.9,83.9 61.9,67.3"
+                            ></polygon>
+                            <polygon
+                              fill= "red"
+                              transform="scale(0.35)"
+                              class="st0"
+                              points="80.6,109.7 61.9,93.1 61.9,109.7"
+                            ></polygon>
+                            <path
+                              transform="scale(0.35)"
+                              d="M102.1,30.8c-20.1,0-36.9,16-40.1,36.5c4.6-17,19.3-29.7,36.6-29.7c21.1,0,38.2,18.3,38.2,40.8
+                            c0,17.1-10.8,32.6-24.7,38.7c17.2-5.1,30.7-22.9,30.7-42.8C142.7,50.3,124.5,30.8,102.1,30.8z"
+                            ></path>
+                          </svg>
+                    </div>
+                    <p class="mb-0 text-right">
+                      &nbsp; Kolin Balance
+                    </p>
+                    <div class="float-right">
+                      <div class="fluid-container">
+                        <h3 class="font-weight-medium text-right mb-0" id="KolinBalance">
+                          0
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="text-muted mt-3 mb-0">
+                      <em class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></em>
+                      holds <strong id="percentageKolinHolder">0</strong> % supply
+                  </p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="clearfix mt-3">
+                    <div class="float-left  ml-3">
+                        <svg width="60" height="60">
+                            <path
+                              transform="scale(0.3)"
+                              fill="blue"
+                              d="M128,64,64,128,0,64,64,0Z"
+                            ></path>
+                          </svg>
+                    </div>
+                    <p class="mb-0 text-right">
+                      &nbsp; Waves Balance
+                    </p>
+                    <div class="float-right">
+                      <div class="fluid-container">
+                        <h3 class="font-weight-medium text-right mb-0" id="WavesBalance">
+                          0
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="text-muted mt-3 mb-0">
+                      <em class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></em>
+                      holds <strong id="percentageWavesHolder">0</strong> % supply
+                  </p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="clearfix mt-3">
+                    <div class="float-left  ml-3">
+                        <svg width="60" height="60">
+                            <path
+                              transform="scale(1.5)"
+                              fill="#FF9900"
+                              d="M11.5 11.5v-2.5c1.75 0 2.789.25 2.789 1.25 0 1.172-1.684 1.25-2.789 1.25zm0 .997v2.503c1.984 0 3.344-.188 3.344-1.258 0-1.148-1.469-1.245-3.344-1.245zm12.5-.497c0 6.627-5.373 12-12 12s-12-5.373-12-12 5.373-12 12-12 12 5.373 12 12zm-7 1.592c0-1.279-1.039-1.834-1.789-2.025.617-.223 1.336-1.138 1.046-2.228-.245-.922-1.099-1.74-3.257-1.813v-1.526h-1v1.5h-.5v-1.5h-1v1.5h-2.5v1.5h.817c.441 0 .683.286.683.702v4.444c0 .429-.253.854-.695.854h-.539l-.25 1.489h2.484v1.511h1v-1.511h.5v1.511h1v-1.5c2.656 0 4-1.167 4-2.908z"
+                            ></path>
+                          </svg>
+                    </div>
+                    <p class="mb-0 text-right">
+                      &nbsp; Bitcoin Balance
+                    </p>
+                    <div class="float-right">
+                      <div class="fluid-container">
+                        <h3 class="font-weight-medium text-right mb-0"  id="BitcoinBalance">
+                          0
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="text-muted mt-3 mb-0">
+                      <em class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></em>
+                      holds <strong id="percentageBitcoinHolder">0</strong> % supply
+                    </p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="clearfix mt-3">
+                    <div class="float-left  ml-4">
+                        <svg width="60" height="60" class="">
+                          <path transform="scale(0.2)" d="M 46.22125,55.68413 0,76.69288 46.22125,104.01413 92.4425,76.69288 46.22125,55.68413 z" id="path3078" style="opacity:0.60000598;fill:#010101;fill-opacity:1;fill-rule:nonzero;stroke:none"/>
+                          <path transform="scale(0.2)" d="m 3.7e-4,76.6925 46.22125,27.32125 0,-48.33 L 46.22162,0 3.7e-4,76.6925 z" id="path3094" style="opacity:0.44999701;fill:#010101;fill-opacity:1;fill-rule:nonzero;stroke:none"/>
+                          <path transform="scale(0.2)" d="m 46.22125,0 0,55.68375 0,48.33 L 92.4425,76.6925 46.22125,0 z" id="path3110" style="opacity:0.80000299;fill:#010101;fill-opacity:1;fill-rule:nonzero;stroke:none"/>
+                          <path transform="scale(0.2)" d="m 3.7e-4,85.45725 46.22125,65.13375 0,-37.82625 L 3.7e-4,85.45725 z" id="path3126" style="opacity:0.44999701;fill:#010101;fill-opacity:1;fill-rule:nonzero;stroke:none"/>
+                          <path transform="scale(0.2)" d="m 46.22125,112.76525 0,37.82625 L 92.47,85.45775 46.22125,112.76525 z" id="path3142" style="opacity:0.80000299;fill:#010101;fill-opacity:1;fill-rule:nonzero;stroke:none"/>
+                        </svg>
+                    </div>
+                    <p class="mb-0 text-right">
+                      &nbsp; Ethereum Balance
+                    </p>
+                    <div class="float-right">
+                      <div class="fluid-container">
+                        <h3 class="font-weight-medium text-right mb-0" id="ETHBalance">
+                          0
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="text-muted mt-3 mb-0">
+                      <em class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></em>
+                      holds <strong id="percentageETHHolder">0</strong> % supply
+                  </p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="clearfix mt-3">
+                    <div class="float-left ml-3">
+                        <svg width="60" height="60" class="">
+                          <g xmlns="http://www.w3.org/2000/svg" id="wallet_assets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-780.000000, -728.000000)">
+                          <g id="if_currency-litecoin_2389818" transform="translate(780.000000, 728.000000)" fill-rule="nonzero">
+                              <path d="M15,0 C6.71554687,0 0,6.71578125 0,15 C0,23.2842188 6.71578125,30 15,30 C23.2839844,30 30,23.2842188 30,15 C30,6.71578125 23.2842188,0 15,0 Z" id="Shape" fill="#909BA7"/>
+                              <polygon id="Shape" fill="#FFFFFF" points="20.305032 21.1747484 9.45983532 21.1747484 10.5674291 17.0135407 9 17.5862763 9.51802379 15.6338518 11.0869167 15.0607502 12.9659652 8 17.0413541 8 15.6042086 13.41043 17.5983532 12.6819762 17.6155535 12.7288198 17.1116194 14.6228728 15.0856359 15.3628545 14.2298262 18.5849954 21 18.5849954"/>
+                          </g>
+                          </g>
+                        </svg>
+                    </div>
+                    <p class="mb-0 text-right">
+                      &nbsp; Litecoin Balance
+                    </p>
+                    <div class="float-right">
+                      <div class="fluid-container">
+                        <h3 class="font-weight-medium text-right mb-0" id="LTCBalance">
+                          0
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="text-muted mt-3 mb-0">
+                      <em class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></em>
+                      holds <strong id="percentageLTCHolder">0</strong> % supply
+                  </p>
+            </div>
+          </div>
+    </div>
+    <!-- Main content -->
+		<div class="content-wrapper">
+    <section class="content">
+   	    <div class="row mb-2" id="selectcard">
+              <div class="col-lg-3 col-md-6 my-2">               
+                <div class=" text-center box-inverse p-50 bg-info bg-hexagons-dark pull-up">
+                  <div class="box-body">
+                    <h5 class="text-uppercase">General</h5>
+                    <br>
+                    <h3 class="font-weight-100 font-size-70">$0.10</h3>
+                    <small>Per word</small>
+                    <hr>
+                    <button id="generalTranslation" value="generalTranslation" class="btn btn-bold btn-outline btn-light pricecard" >Select</button>
+                    <hr>
+                    <p><strong>Peers</strong> Translation</p>
+                    <p><strong>Common</strong> Languages</p>
+                    <p><strong>Unmoderated</strong> Service</p>
+                    <br>
+                    </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 my-2">
+                <div class=" text-center p-50 box-inverse bg-warning bg-hexagons-dark pull-up">
+                  <div class="box-body">
+                    <h5 class="text-uppercase">Professional</h5>
+                    <br>
+                    <h3 class="font-weight-100 font-size-70">$0.20</h3>
+                    <small>Per word</small>
+                    <hr>
+                    <button id="professionalTranslation" value="professionalTranslation" class="btn btn-bold btn-outline btn-light pricecard">Select</button>
+                    <hr>
+                    <p><strong>Professional</strong> Translator</p>
+                    <p><strong>Major</strong> Languages</p>
+                    <p><strong>Moderated</strong> Service</p>
+                    <br>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 my-2">         
+                <div class=" text-center p-50 box-inverse bg-danger bg-hexagons-dark pull-up">
+                  <div class="box-body">
+                    <h5 class="text-uppercase">Advanced</h5>
+                    <br>
+                    <h3 class="font-weight-100 font-size-70">$0.30</h3>
+                    <small>Per word</small>
+                    <hr>
+                    <button id="advancedTranslation" value="advancedTranslation" class="btn btn-bold btn-outline btn-light pricecard">Select</button>
+                    <hr>
+                    <p><strong>Specialist</strong> Translator</p>
+                    <p><strong>Uncommon</strong> Languages</p>
+                    <p><strong>Moderated</strong> Service</p>
+                    <br>
+                    </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 mt-2">
+                <div class=" text-center p-50 box-inverse bg-success bg-hexagons-dark pull-up">
+                  <div class="box-body">
+                    <h5 class="text-uppercase">Certified</h5>
+                    <br>
+                    <h3 class="font-weight-100 font-size-70">$0.5</h3>
+                    <small>Per word</small>
+                    <hr>
+                    <button class="btn btn-bold btn-outline btn-light pricecard" id="certifiedTranslation" value="certifiedTranslation">Select</button>
+                    <hr>
+                    <p><strong>Certified</strong> Translator</p>
+                    <p><strong>Signature</strong> Verified</p>
+                    <p><strong>Moderated</strong> Service</p>
+                    <br>
+                  </div>
+                </div>
+              </div>
+        </div>
+			</section>
+        </div>
+        <div class="content-wrapper">
+            <section class="content">
+		  	<div class="row col-lg-12">
+          <h5 class="mx-2">#This demo version works just with ".TXT" and single files. 
+            Further functionalities to be implemented in later releases</h5>
+        </div>
+          <input class="box-body badge-dark" type="file" id="drop_zone" style="border: 1px solid #fff;" onchange="wc(this)" required></input>
+        <div class="container-fluid col-lg-12 my-4 bg-hexagons-dark">  
+            <strong>Files submitted:</strong>
+            <hr>
+            <div><b>Name: </b><span id="fileName">&nbsp; </span></div>
+            <div><b>Type: </b><span id="fileType">&nbsp; </span></div>
+            <div><b>Modified: </b><span id="fileModified">&nbsp; </span></div>
+        <div><b>Bytes: </b><span id="fileBytes">&nbsp; </span></div>
+      <div><b>Words: </b><span id="fileWords">&nbsp; </span></div>
+      <div><b>Characters: </b><span id="fileChars">&nbsp; </span></div>
+      <div><b>Lines: </b><span id="fileLines">&nbsp; </span></div>
+      <div><b>Longest: </b><span id="fileLongest"> &nbsp;</span></div>
+      <div><b>Hash256: </b><span id="file256Hash"> &nbsp;</span></div>
+      <div><b>Hash512: </b><span id="file512Hash"> &nbsp;</span></div>
+      <input
+                  type="text"
+                  class="form-control my-4"
+                  placeholder="Choose a future Height"
+                  id="futureHeight"
+                />
+      <button class="btn btn-primary float-right my-2 mx-5" id="myBtn">Sign</button>
+      </div>   
+    </section>   
+    </div>
+
+        <!-- The Modal -->
+         <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2>Kolin message</h2>
+                <span class="close">&times;</span>
+              </div>
+              <div class="modal-body">
+                <p>You are deploying the following script in your account</p>
+                <input class="form-control" type="text" placeholder="" id="ScriptToDeploy" readonly> </input>
+                <p>&nbsp</p>
+              </div>
+              <div class="modal-footer">
+                <h4>This transaction is irreversible</h4>
+                <button type="button" id="acceptDeployment" class="btn btn-success font-weight-bold" onclick="deployScript()">Deploy</button>
+                <button type="button" class="btn btn-danger font-weight-bold" onclick="closeModal()">Cancel</button>
+              </div>
+            </div>
+          </div>
+        
+        
+        <!--
+        <div class="row mb-2 col-lg-12 mx-4">   
+          <input type="checkbox" type="file" id="files" name="file" /> Read bytes: 
+<span class="readBytesButtons">
+  <button data-startbyte="0" data-endbyte="4">1-5</button>
+  <button data-startbyte="5" data-endbyte="14">6-15</button>
+  <button data-startbyte="6" data-endbyte="7">7-8</button>
+  <button>entire file</button>
+</span>
+<div id="byte_range"></div>
+<div id="byte_content"></div>
+        </div>-->
+		    </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:https://demo.kolinplatform.com/partials/_footer.html -->
+        <footer class="footer">
+          <div class="container-fluid clearfix">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2019
+              <a href="http://kolinplatform.com" target="_blank">Kolin Platform</a>. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">The first decentralised network for Translation
+            </span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <!--<script src="https://demo.kolinplatform.com/vendors/js/vendor.bundle.base.js"></script>-->
+  <script src="../js/postwork.js"></script>
+  <script src="../js/wordcount.js"></script>
+  <script src="../js/index.js"></script>
+  <script src="../js/crypto-js.js"></script>
+</body>
+</html>
