@@ -1,0 +1,26 @@
+{-# STDLIB_VERSION 3 #-}
+{-# CONTENT_TYPE DAPP #-}
+{-# SCRIPT_TYPE ACCOUNT #-}
+
+func getExtValueItemWhiteListStatus(item: String) = {
+    item + "_verifier_status"
+}
+
+let verifier = "3P4rmEtPiBxarscB4g5viRHyvnudv5nJ8mv"
+
+let VERIFIED = "verified"
+let BLACKLISTED = "blacklist"
+
+@Callable(i)
+func setstatus(translator: String, status: String) ={
+    let account = toBase58String(i.caller.bytes)
+    if ( account != verifier ) then throw("only Kolin admins can manage the whitelist")
+    else if ( status != VERIFIED && status != BLACKLISTED) then throw("status not recognised")
+    else{
+        WriteSet(
+            [
+                DataEntry(getExtValueItemWhiteListStatus(translator), status)
+            ]
+        )
+    }
+}
