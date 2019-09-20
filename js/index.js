@@ -231,6 +231,7 @@ window.onload = function height() {
 
       //currentheight
       document.getElementById("height").innerHTML = obj.height.toLocaleString();
+      document.getElementById("futureHeight").min = obj.height;
       currentHeight = obj.height;
     }
   };
@@ -242,7 +243,11 @@ window.onload = function height() {
       var profileName = document.getElementsByClassName("profile-name");
           for (i = 0; i < profileName.length; i++) {
             profileName[i].innerText = state.account.address;
-          }
+          };
+      var profilePicture = document.getElementsByClassName("profile-pic");
+          for (i = 0; i < profilePicture.length; i++) {
+            profilePicture[i].src = 'https://kolinplatform.com/avatar/avatar.png';
+          };
       WavesAddress = state.account.address;
       getbalance();
       console.log("you are already logged in");
@@ -327,8 +332,8 @@ window.onclick = function(event) {
 document.getElementById("futureHeight").addEventListener("change", event => {
   FutureHeight = document.getElementById("futureHeight").value;
   if (FutureHeight <= currentHeight) {
-    alert("please choose a height higher than current height");
-    Script = "please choose a height higher than current height";
+    alert("please choose a height higher than current height " + currentHeight);
+    Script = "please choose a height higher than current height" + currentHeight;
     document.getElementById("acceptDeployment").style.visibility = "hidden";
   } else {
     document.getElementById("acceptDeployment").style.visibility = "visible";
