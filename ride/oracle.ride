@@ -1,25 +1,39 @@
 {-# STDLIB_VERSION 3 #-}
 {-# CONTENT_TYPE DAPP #-}
 {-# SCRIPT_TYPE ACCOUNT #-}
-
-func getExtValueItemWhiteListStatus(item: String) = {
-    item + "_verifier_status"
+func getExtKeyItemWhiteListStatus(account: String) = {
+    "verifier_status_" + account 
 }
+func getExtValueItemWhiteListStatus(status: String) = {
+    status
+}
+let verifier= "3P4rmEtPiBxarscB4g5viRHyvnudv5nJ8mv"
+let WHITELISTED = "registered"
+let BLACKLISTED = "blacklisted"
+let INVITED = "invited"
+let SPENDINVITE = "spend_invite"
+let MODERATOR = "moderator"
+let ADMIN = "admin"
 
-let verifier = "3P4rmEtPiBxarscB4g5viRHyvnudv5nJ8mv"
-
-let VERIFIED = "verified"
-let BLACKLISTED = "blacklist"
+@Verifier(i)
+    func verify() = {
+        match i {
+            case o: SetScriptTransaction => sigVerify(i.proofs[0], i.bodyBytes, base58'3P4ZZFyjj3CYxfAgxcCcLQY1r96yP8JxGaB') 
+            case _ => false
+            }
+    }
 
 @Callable(i)
-func setstatus(translator: String, status: String) ={
-    let account = toBase58String(i.caller.bytes)
-    if ( account != verifier ) then throw("only Kolin admins can manage the whitelist")
-    else if ( status != VERIFIED && status != BLACKLISTED) then throw("status not recognised")
+func setstatus(account: String, status: String) ={
+    let caller = toBase58String(i.caller.bytes)
+    if ( caller != verifier || getExtValueItemWhiteListStatus(caller) != MODERATOR ) 
+    then throw("only Kolin ADMINS or MODERATORS can manage the whitelist")
+    else if ( status != WHITELISTED || status != BLACKLISTED || status != INVITED || status != MODERATOR || status != ADMIN || status != SPENDINVITE)
+        then throw("status not recognised")
     else{
         WriteSet(
             [
-                DataEntry(getExtValueItemWhiteListStatus(translator), status)
+                DataEntry(getExtValueItemWhiteListStatus(account), status)
             ]
         )
     }
