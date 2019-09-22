@@ -231,7 +231,7 @@ window.onload = function height() {
 
       //currentheight
       document.getElementById("height").innerHTML = obj.height.toLocaleString();
-      document.getElementById("futureHeight").min = obj.height;
+      //document.getElementById("futureHeight").min = obj.height;
       currentHeight = obj.height;
     }
   };
@@ -331,7 +331,7 @@ window.onclick = function(event) {
 //Signing the Script transaction
 document.getElementById("futureHeight").addEventListener("change", event => {
   FutureHeight = document.getElementById("futureHeight").value;
-  if (FutureHeight <= currentHeight) {
+  if (currentHeight+FutureHeight <= currentHeight) {
     alert("please choose a height higher than current height " + currentHeight);
     Script = "please choose a height higher than current height" + currentHeight;
     document.getElementById("acceptDeployment").style.visibility = "hidden";
