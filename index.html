@@ -734,6 +734,8 @@
       
 </div> 
 <div class="card-body col-6 float-right">
+  <div>Your project will be posted with this Block Height as deadline. 
+    Please choose a number of blocks between 1440 (~1 day) and 44,640 (31 days) </div>
   <div class="input-group">
     <div class="input-group col-xs-12  my-4">
       <div class="input-group-prepend bg-info">
@@ -746,7 +748,8 @@
       class="form-control"
       placeholder="Choose a future Height"
       id="futureHeight"
-      min=""
+      min="1440"
+      max="44640"
      />
    <button class="btn btn-info" id="myBtn">Accept</button>
   </div>  
@@ -811,9 +814,9 @@
   <!-- container-scroller -->
   <!-- plugins:js -->
   <!--<script src="../../demo/vendors/js/vendor.bundle.base.js"></script>-->
-  <script src="../../js/postwork.js"></script>
-  <script src="../../js/wordcount.js"></script>
-  <script src="../../js/index.js"></script>
-  <script src="../../js/crypto-js.js"></script>
+  <script src="../WavesGrants/js/postwork.js"></script>
+  <script src="../WavesGrants/js/wordcount.js"></script>
+  <script src="../WavesGrants/js/index.js"></script>
+  <script src="../WavesGrants/js/crypto-js.js"></script>
 </body>
 </html>
