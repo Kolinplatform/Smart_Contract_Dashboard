@@ -7,7 +7,7 @@ func getExtKeyItemWhiteListStatus(account: String) = {
 func getExtValueItemWhiteListStatus(status: String) = {
     status
 }
-let verifier= "3P4rmEtPiBxarscB4g5viRHyvnudv5nJ8mv"
+let verifier= "3NCKoFQxRf7zsDNbivLFw1oJ7y8qJzLmEs4"
 let WHITELISTED = "registered"
 let BLACKLISTED = "blacklisted"
 let INVITED = "invited"
@@ -15,20 +15,20 @@ let SPENDINVITE = "spend_invite"
 let MODERATOR = "moderator"
 let ADMIN = "admin"
 
-@Verifier(i)
-    func verify() = {
-        match i {
-            case o: SetScriptTransaction => sigVerify(i.proofs[0], i.bodyBytes, base58'3P4ZZFyjj3CYxfAgxcCcLQY1r96yP8JxGaB') 
-            case _ => false
-            }
-    }
+#@Verifier(i)
+ #   func verify() = {
+  #      match i {
+   #         case o: SetScriptTransaction => sigVerify(i.proofs[0], i.bodyBytes, base58'6KMPZeYtPd2PGkCrTio3BhGqeQrrtyQN9VQLp1Lm5PaL') 
+    #        case _ => false
+     #       }
+    #}
 
 @Callable(i)
 func setstatus(account: String, status: String) ={
     let caller = toBase58String(i.caller.bytes)
-    if ( caller != verifier || getExtValueItemWhiteListStatus(caller) != MODERATOR ) 
+    if ( caller != verifier && (getExtValueItemWhiteListStatus(caller) != MODERATOR || getExtValueItemWhiteListStatus(caller) != ADMIN) ) 
     then throw("only Kolin ADMINS or MODERATORS can manage the whitelist")
-    else if ( status != WHITELISTED || status != BLACKLISTED || status != INVITED || status != MODERATOR || status != ADMIN || status != SPENDINVITE)
+    else if ( caller != verifier && (status != WHITELISTED || status != BLACKLISTED || status != INVITED || status != MODERATOR || status != ADMIN || status != SPENDINVITE))
         then throw("status not recognised")
     else{
         WriteSet(
