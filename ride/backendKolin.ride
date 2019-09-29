@@ -1,5 +1,524 @@
 {-# STDLIB_VERSION 3 #-}
 {-# CONTENT_TYPE DAPP #-}
 {-# SCRIPT_TYPE ACCOUNT #-}
+#Oracle used for disputes
+let oracleWhiteListAddress = Address(base58'3MvJMBxdrVAf1nCHiarJcQVnKy91HhBKe6w')
+let thisAddressPublicKey = base58'7A8H5cWfJVSpSrnB71CzWqyNm8KMxZPjwFcj1mDUU8an' #PublicKey
+let DAPPADDRESS = "3N2FjnCq4gcpewsYQVT4scz9MjTgD6a4kQK"
+let ADMIN = "3NCKoFQxRf7zsDNbivLFw1oJ7y8qJzLmEs4"
+#asset IDs
+let WUSD = base58'Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck'
+let WEUR = base58'Gtb1WRznfchDnTh37ezoDTJ4wcoKaRsKqKjJjy7nm2zU'
+let WBTC = base58'8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS'
+let KOLIN = base58'FiKspxSpkpzT4pMUA9ccZkbJmVXTdu4JhFDXNNXr5noW'
+let WETH = base58'474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu'
+let WLTC = base58'HZk1mbfuJpmxU1Fs4AX5MWLVYtctsNcg6e2C6VKqK8zk'
 
-#I will not give the code so easily :D
+
+let LISTINGFEE = 1*1000000
+
+#standard
+let NONE = "none"
+func getNumberByKey(key: String) = {
+    let num = match getInteger(this, key) {
+            case a:Int => a
+            case _ => 0
+    }
+    num
+}
+func getStrByKey(key: String) = {
+    let str = match getString(this, key) {
+            case a:String => a
+            case _ => NONE
+    }
+    str
+}
+let WHITELISTED = "WHITELISTED" 
+let BLACKLISTED = "BLACKLISTED"
+let INVITED = "INVITED"
+let SPENDINVITE = "SPEND_INVITE"
+let MODERATOR = "MODERATOR"
+let QUORUM = 5
+
+func getKeyItem(user: String, item: String) = {
+    "item_" + toBase58String(sha256(toBytes(user + item)))
+}
+func getValueItem(user: String, item: String) = {
+    toBase58String(sha256(toBytes(user + item)))
+}
+func getKeyItemDocument(document: String) = {
+    "item_" + document
+}
+func getValueItemDocument(document:String) = {
+    getStrByKey(document)
+}
+
+func getKeyWhitelistRef(account: String) = {
+    "wl_ref_" + account
+}
+func getValueWhitelistRef(account: String) = {
+    getStrByKey(getKeyWhitelistRef(account))
+}
+func getKeyWhitelistStatus(account: String) = {
+    "wl_sts_" + account
+}
+func getKeyBalance(account: String) = {
+    "balance_" + account
+}
+func getKeyWhitelistBio(account: String) = {
+    "wl_bio_" + account
+}
+func getKeyWhitelistBlock(account: String) = {
+    "wl_blk_" + account
+}
+func getKeyItemAccReportData(item: String, account: String) = {
+    "report_" + item + "_" + account
+}
+func getValueBalance(account: String) = {
+    getNumberByKey(getKeyBalance(account))
+}
+
+func getKeyItemAuthor(item: String) = {
+    "author_" + item
+}
+func getValueItemAuthor(item: String) = {
+    getStrByKey(getKeyItemAuthor(item))
+}
+func getKeyItemDeadline(item: String) = {
+    "deadlineblock_" + item
+}
+func getValueItemDeadline(item: String) = {
+    getNumberByKey(getKeyItemDeadline(item))
+}
+func getKeyItemBlock(item: String) = {
+    "work_submitted_on_" + item
+}
+func getValueItemBlock(item: String) = {
+    getNumberByKey(getKeyItemBlock(item))
+}
+func getKeyItemTypeOfWork(item: String) = {
+    "typeofwork_" + item
+}
+func getValueItemTypeOfWork(item: String) = {
+    getNumberByKey(getKeyItemTypeOfWork(item))
+}
+func getKeyItemWordCount(item: String) = {
+    "wordcount_" + item
+}
+func getValueItemWordCount(item: String) = {
+    getNumberByKey(getKeyItemWordCount(item))
+}
+func getKeyItemPriceUSD(item: String) = {
+    "priceUSD_" + item 
+}
+func getValueItemPriceUSD(item: String) = {
+    getNumberByKey(getKeyItemPriceUSD(item))
+}
+func getKeyItemAssetID(item: String) = {
+    "pmtassetID_" + item
+}
+func getValueItemAssetID(item: String) = {
+    getStrByKey(getKeyItemAssetID(item))
+}
+func getKeyItemPriceAssetID(item: String) = {
+    "priceassetID_" + item
+}
+func getValueItemPriceAssetID(item: String) = {
+    getNumberByKey(getKeyItemPriceAssetID(item))
+}
+func getKeyItemData(item: String) = {
+    "datajson_" + item
+}
+func getValueItemData(item: String) = {
+    getStrByKey(getKeyItemData(item))
+}
+func getKeyItemStatus(item: String) ={
+    "status_" + item
+}
+func getValueItemStatus(item: String) = {
+    getStrByKey(getKeyItemStatus(item))
+}
+func getKeyItemTranslator(item: String) = {
+    "translator_" + item
+}
+func getValueItemTranslator(item:String) = {
+    getStrByKey(getKeyItemTranslator(item))
+}
+func getKeyItemDueFor(item: String) = {
+    "due_for_" + item
+}
+func getValueItemDueFor(item: String) ={
+    getNumberByKey(getKeyItemDueFor(item))
+}
+func getKeyItemDisputeInitiatedBy(item: String) = {
+    "disputedby_" + item
+}
+func getValueItemDisputeInitiatedBy(item: String) = {
+    getStrByKey(getKeyItemDisputeInitiatedBy(item))
+}
+func getKeyItemDisputeClosedBy(item: String) = {
+    "disputeclosedby_" + item
+}
+func getValueItemDisputeClosedBy(item: String) = {
+    getStrByKey(getKeyItemDisputeClosedBy(item))
+}
+func getKeyItemDisputeClosedWinner(item: String) ={
+    "dispute_winner_"
+}
+func getKeyValueDisputeClosedWinner(item: String) = {
+    getStrByKey(getKeyItemDisputeClosedWinner(item))
+}
+func getKeyItemLastUpdate(item:String) = {
+    "last_update_" + item
+}
+
+func getValueItemLastUpdate(item: String) = {
+    getNumberByKey(getKeyItemLastUpdate(item))
+}
+func getKeyItemDisputeVotesTranslator(item: String) = {
+    "cnt_translator_" + item
+}
+func getValueItemDisputeVotesTranslator(item: String) = {
+    getNumberByKey(getKeyItemDisputeVotesTranslator(item))
+}
+
+func getKeyItemDisputeVotesUser(item: String) = {
+    "cnt_user_" + item
+}
+func getValueItemDisputeVotesUser(item: String) = {
+    getNumberByKey(getKeyItemDisputeVotesUser(item))
+}
+func getKeyItemBalance(item: String) = {
+    "balance_" + item
+}
+func getValueItemBalance(item: String) = {
+    getNumberByKey(getKeyItemBalance(item))
+}
+func getKeyItemBalanceAssetID(item: String) = {
+    "balance_assetID_" + item
+}
+func getValueItemBalanceAssetID(item:String) = {
+    getNumberByKey(getKeyItemBalanceAssetID(item))
+}
+func getExtKeyItemWhiteListStatus(account: String) = {
+    "verifier_status_" + account
+}
+func getExtValueItemWhiteListStatus(oracle: Address, account: String) = {
+    let str = match getString(oracle, getExtKeyItemWhiteListStatus(account)){
+        case a: String => a 
+        case _ => NONE
+    }
+    str
+}
+#Protecting contract from editing
+#@Verifier(i)
+ #   func verify() = {
+  #      match i {
+   #         case o: SetScriptTransaction => sigVerify(i.proofs[0], i.bodyBytes, thisAddressPublicKey) 
+    #        case _ => false
+     #       }
+    #}
+#Submit translation work  
+@Callable(i)
+    func submitTranslation (document: String, data: String, assetID: String, futureBlocks: Int, wordCount: Int, typeOfWork: Int, priceAssetID: Int) = {
+        let user = toBase58String(i.caller.bytes)
+        let item = getKeyItem(user, document)
+        let pmt = extract(i.payment)
+        let deadlineblock = height + futureBlocks
+        let currstatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, user)
+        if ((currstatus != WHITELISTED && currstatus != ADMIN && currstatus!=MODERATOR) && (user != DAPPADDRESS))
+        then throw("Your account is not registered. status: " + currstatus)
+        else if (isDefined(pmt.assetId) != false && pmt.assetId != WETH && pmt.assetId != WLTC && pmt.assetId != WEUR && pmt.assetId != WUSD && pmt.assetId != WBTC && pmt.assetId != KOLIN) 
+        then throw("can only use WAVES, USD, EUR, BTC, ETH, LTC and KOLIN as payment methods")
+        else if (pmt.amount != LISTINGFEE)
+            then throw("Please pay exact amount for the listing: " + toString(LISTINGFEE) + ", actual payment is: " + toString(pmt.amount))
+        else if (getValueItemAuthor(item) != NONE)
+            then throw("Item already exist")
+        else if (futureBlocks < 1440) 
+            then throw("please allow at least 24 h (~1440 blocks) for the translation work to be published properly")
+        else if (futureBlocks > 44640) 
+            then throw("a translation work can not be posted for longer than 31 days (~44640 blocks) ")
+        else WriteSet([ 
+                DataEntry(item, item),
+                DataEntry(getKeyItemAuthor(item), user),
+                DataEntry(getKeyItemBlock(item), height),
+                DataEntry(getKeyItemLastUpdate(item), height),
+                DataEntry(getKeyItemDeadline(item), deadlineblock),
+                DataEntry(getKeyItemTypeOfWork(item), typeOfWork),
+                DataEntry(getKeyItemWordCount(item), wordCount),
+                DataEntry(getKeyItemPriceUSD(item), typeOfWork*wordCount),
+                DataEntry(getKeyItemAssetID(item), assetID), 
+                DataEntry(getKeyItemPriceAssetID(item), priceAssetID), 
+                DataEntry(getKeyItemStatus(item), "new post"),
+                DataEntry(getKeyItemData(item), data)
+        ]) 
+     }
+@Callable(i)
+    func escrow (item: String, translator: String, futureBlocks: Int) = {
+    let user = toBase58String(i.caller.bytes)
+    let pmt = extract(i.payment)
+    let deadlineblock = height + futureBlocks
+    let price = getValueItemPriceAssetID(item)
+    let registeredAssetID = getValueItemAssetID(item)
+    let translatorStatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, translator)
+    let userStatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, user)
+    if (userStatus != WHITELISTED && user != DAPPADDRESS && userStatus != ADMIN && userStatus != MODERATOR)
+        then throw("Your account is not registered. status: " + userStatus)
+    else if (translatorStatus != WHITELISTED && translator != DAPPADDRESS && translatorStatus != ADMIN && translatorStatus != MODERATOR)
+        then throw("Your account is not registered. status: " + userStatus)
+    else if (getValueItemDocument(item) != item) then throw(getValueItemDocument(item)+ " translation work found for " + item)
+    else if (getValueItemDeadline(item) <= height) then throw("deadline for this work ("+ toString(getValueItemDeadline(item)) +") has been already achieved")
+    else if (pmt.amount < price) then throw("price lower than posted for this translation work, please pay: " + toString(price))
+    #else if (pmt.assetId != registeredAssetID) then throw("Contract was posted with" + registeredAssetID + "as payment method")
+    else if (pmt.amount > price) then throw("money payed is higher than this translation work, please pay: " + toString(price) + " there is no need to overspend")
+    else if (user != getValueItemAuthor(item)) then throw("User " + user +" is different than translation's post creator: " + getValueItemAuthor(item))
+    else if (userStatus == BLACKLISTED) then throw("user's account has been blacklisted")
+    else if (translatorStatus == BLACKLISTED) then throw("translator's account has been blacklisted")
+    else if (futureBlocks < 1440) then throw("please allow at least 24 h (~1440 blocks) for the translation work to be published properly")
+    else if (futureBlocks > 44640) then throw("a translation work can not be posted for longer than 31 days (~44640 blocks) ")
+    else if (getValueItemStatus(item) != "new post" ) then throw("escrow for this work already present. Current status: " + getValueItemStatus("item_" + item))
+    else{
+        ScriptResult(
+            WriteSet([
+                DataEntry(getKeyItemStatus(item), "work allocated to translator"),
+                DataEntry(getKeyItemTranslator(item), translator),
+                DataEntry(getKeyItemDueFor(item), deadlineblock),
+                DataEntry(getKeyItemLastUpdate(item), height),
+                DataEntry(getKeyItemBalance(item), pmt.amount),
+                DataEntry(getKeyItemBalanceAssetID(item), registeredAssetID)
+            ]),
+            TransferSet([
+               #ScriptTransfer(DAPPADDRESS, price, unit, assetID)
+               ])
+        )
+    }
+    }
+#Byzantyne protocol
+#let buyerPub = extract(getString(this, "buyer"))
+#let sellerPub = extract(getString(this, "seller"))
+#let verificationHash = extract(getBinary(this, "verificationHash"))
+#let blockUnlocked = extract(getInteger(this, "blockUnlocked"))
+   #match(i)   
+    #  {
+     #     case t : TransferTransaction =>  sigVerify(t.bodyBytes, t.proofs[0], fromBase58String(buyerPub)) ||
+      #                                      (sigVerify(i.bodyBytes, i.proofs[0], fromBase58String(sellerPub)) && ((height > blockUnlocked) || (keccak256(t.attachment) == verificationHash)))
+       #     case _ => false
+      #else{            let currentAmount = match getInteger(this, account){            case a:Int => a   case _ => 0
+       #}        let newAmount = currentAmount + pmt.amount
+       #}
+#TransferSet([ScriptTransfer(addressFromStringValue(address), pmt.amount, unit)])
+
+##Dispute Escrow
+@Callable(i)
+    func disputeEscrow(item: String) = {
+        let caller = toBase58String(i.caller.bytes)
+        let amount = getValueItemPriceAssetID(item)
+        let assetID = getValueItemAssetID(item)
+        let blockUnlocked = getValueItemDueFor(item)
+        let translatorStatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, getValueItemTranslator(item))
+        let userStatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, getValueItemAuthor(item))
+        let currstatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, caller) 
+        if (currstatus != WHITELISTED && caller != DAPPADDRESS && currstatus != ADMIN)
+        then throw("Your account is not registered. status: " + currstatus)
+        # else if (height < blockUnlocked) then throw("Deadline has not finished yet")
+        else if (caller != getValueItemTranslator(item) || caller != getValueItemAuthor(item) || caller != ADMIN) 
+        then throw("just work creator, translator or an admin can initiate a dispute")
+        else if (getKeyItemStatus(item) == "dispute in progress") then throw("This work is currently under dispute")
+        else if (userStatus == BLACKLISTED) then throw("user's account has been blacklisted")
+        else if (translatorStatus == BLACKLISTED) then throw("translator's account has been blacklisted")
+        else ScriptResult(
+            WriteSet([ 
+                DataEntry(getKeyItemStatus(item), "dispute in progress"),
+                DataEntry(getKeyItemDisputeInitiatedBy(item), caller),
+                DataEntry(getKeyItemDueFor(item), height + 1440),
+                DataEntry(getKeyItemLastUpdate(item), height),
+                DataEntry(getKeyItemDisputeClosedBy(item), NONE),
+                DataEntry(getKeyItemDisputeClosedWinner(item), NONE)
+            ]),
+            TransferSet([#ScriptTransfer(addressFromStringValue(address), amount, unit)
+            ])
+        )
+    }
+##Close Dispute
+@Callable(i)
+    func disputeCloseEscrow(item: String) = {
+        let caller = toBase58String(i.caller.bytes)
+        let amount = getValueItemPriceAssetID(item)
+        let assetID = getValueItemAssetID(item)
+        let blockUnlocked = getValueItemDueFor(item)
+        let translatorStatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, getValueItemTranslator(item))
+        let userStatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, getValueItemAuthor(item))
+        let currstatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, caller) 
+        if (currstatus != WHITELISTED && caller != DAPPADDRESS && currstatus != ADMIN)
+        then throw("Your account is not registered. status: " + currstatus)
+        else if (currstatus !=ADMIN) then throw("just admins can close a dispute")
+        else if (getKeyItemStatus(item) != "dispute in progress") then throw("This work is not under dispute")
+        #else if (height < blockUnlocked) then throw("Deadline has not finished yet")
+        else if (userStatus == BLACKLISTED) then throw("user's account has been blacklisted")
+        else if (translatorStatus == BLACKLISTED) then throw("translator's account has been blacklisted")
+        else if ((getValueItemDisputeVotesTranslator(item) < QUORUM) && (getValueItemDisputeVotesUser(item) < QUORUM)) then throw("Votes are not enough to favour any involved part")
+        else if  (getValueItemDisputeVotesTranslator(item) >= QUORUM) then
+           # throw("Votes are enough to favour the Translator") &&
+            ScriptResult(
+            WriteSet([ 
+                DataEntry(getKeyItemStatus(item), "dispute closed"),
+                DataEntry(getKeyItemDisputeClosedBy(item), caller),
+                DataEntry(getKeyItemDisputeClosedWinner(item), getValueItemTranslator(item)),
+                DataEntry(getKeyItemLastUpdate(item), height)
+            ]),
+            TransferSet([
+            ScriptTransfer(addressFromStringValue(getValueItemTranslator(item)), amount, fromBase58String(assetID))
+            ])
+        ) 
+        else if  (getValueItemDisputeVotesUser(item) >= QUORUM) then 
+            #throw("Votes are enough to favour the User")&&
+            ScriptResult(
+            WriteSet([ 
+                DataEntry(getKeyItemStatus(item), "dispute closed"),
+                DataEntry(getKeyItemDisputeClosedBy(item), caller),
+                DataEntry(getKeyItemDisputeClosedWinner(item), getValueItemAuthor(item)),
+                DataEntry(getKeyItemLastUpdate(item), height)
+            ]),
+            TransferSet([
+            ScriptTransfer(addressFromStringValue(getValueItemAuthor(item)), amount, fromBase58String(assetID))
+            ])
+        )
+   #else if (address != getValueItemAuthor(item) || address != getValueItemTranslator(item)) 
+    #       then throw("this dispute must benefit any of the parties involved. Address: " + address + "not within dispute")
+        else ScriptResult(
+            WriteSet([ 
+                DataEntry(getKeyItemStatus(item), "dispute still under review"),
+                DataEntry(getKeyItemDisputeClosedBy(item), NONE),
+                DataEntry(getKeyItemDisputeClosedWinner(item), NONE),
+                DataEntry(getKeyItemLastUpdate(item), height),
+                DataEntry(getKeyItemDueFor(item), height + 1440)
+            ]),
+            TransferSet([
+            #ScriptTransfer(addressFromStringValue(address), amount, fromBase58String(assetID))
+            ])
+        )
+    }
+#Voting for Dispute
+@Callable(i)
+    func voteDisputeEscrow(item: String, vote: String) = {
+        let caller = toBase58String(i.caller.bytes)
+        if (getValueItemStatus(item) == "dispute closed")
+            then throw("this dispute is closed")
+        else if (getExtValueItemWhiteListStatus(oracleWhiteListAddress, caller) != MODERATOR || getExtValueItemWhiteListStatus(oracleWhiteListAddress, caller) != ADMIN) 
+            then throw("you either need to be an ADMIN or a MODERATOR to vote in disputes")
+        else if (getValueItemStatus(item) != "dispute in progress" || getValueItemStatus(item) != "dispute still under review")
+            then throw("translation work not under dispute")
+        else if (getValueItemDisputeVotesTranslator(item) >= QUORUM) 
+            then throw("Votes are enough to favour the Translator")
+        else if (getValueItemDisputeVotesUser(item) >= QUORUM) 
+            then throw("Votes are enough to favour the User")
+        else if (vote == getValueItemAuthor(item)) 
+        then WriteSet([
+            DataEntry(getKeyItemDisputeVotesUser(item), getValueItemDisputeVotesUser(item)+1)
+        ])
+        else if (vote == getValueItemTranslator(item)) 
+        then WriteSet([
+            DataEntry(getKeyItemDisputeVotesTranslator(item), getValueItemDisputeVotesTranslator(item)+1)
+        ])
+        else throw("vote not submitted")
+    }
+
+#Withdraw from escrow
+@Callable(i)
+    func withdrawEscrow(item: String) = {
+        let caller = toBase58String(i.caller.bytes)
+        let assetID = getValueItemAssetID(item)
+        let amount = getValueItemPriceAssetID(item)
+        let currstatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, caller)
+        let translatorStatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, getValueItemTranslator(item))
+        let userStatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, getValueItemAuthor(item))  
+        if (currstatus != WHITELISTED && currstatus != MODERATOR && caller != DAPPADDRESS && currstatus != ADMIN)
+        then throw("Your account is not registered. status: " + currstatus)
+        else if (caller != getValueItemTranslator(item) && caller != getValueItemAuthor(item)) then throw("just work creator or translator can withdraw funds. Admins must initiate a dispute")
+        else if (caller == getValueItemAuthor(item) && userStatus == BLACKLISTED) then throw("user's account has been blacklisted")
+        else if (caller == getValueItemTranslator(item) && translatorStatus == BLACKLISTED) then throw("translator's account has been blacklisted")
+        else if (height < getValueItemDueFor(item)) then throw("Deadline (" + toString(getValueItemDueFor(item)) +") has not finished yet. Current height: " + toString(height))
+        else if (getKeyItemStatus(item) == "dispute in progress") then throw("This work is currently under dispute")
+        #else if (keccak256(i.attachment) != verificationHash) then throw("Payment HASH different from translation work registers")
+        else ScriptResult(
+            WriteSet([ 
+                DataEntry(getKeyItemBalance(item), 0),
+                DataEntry(getKeyItemStatus(item), "money withdrawn by " + caller),
+                DataEntry(getKeyItemLastUpdate(item), height)
+            ]),
+            TransferSet([ScriptTransfer(addressFromStringValue(caller), amount, fromBase58String(assetID))])
+        )
+}
+
+
+@Callable(i)
+    func inviteuser(newaccount: String, data: String) = {
+    let caller = toBase58String(i.caller.bytes)
+    let newstatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, newaccount)
+    let currstatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, caller)
+    if (newstatus == WHITELISTED || newstatus == MODERATOR ||  newstatus == ADMIN)
+        then throw("User has already been registered")
+    else if (newstatus == BLACKLISTED) 
+        then throw("The user you want to invite is already Blacklisted")
+    else if (currstatus != WHITELISTED && caller != DAPPADDRESS && currstatus != ADMIN)
+        then throw("Your account should be whitelisted. status: " + currstatus)
+    else {
+        WriteSet([
+            DataEntry(getKeyWhitelistRef(newaccount), caller),
+            DataEntry(getKeyWhitelistBio(newaccount), data),
+            DataEntry(getKeyWhitelistStatus(newaccount), INVITED)
+        ])
+    }
+}
+@Callable(i)
+func userupdate(data: String, type: String) = {
+    let account = toBase58String(i.caller.bytes)
+    if ((type == MODERATOR || type == ADMIN ) && (getExtValueItemWhiteListStatus(oracleWhiteListAddress, account) == WHITELISTED)) then throw("an ADMIN or MODERATOR account can be created by an ADMIN only")
+    else if (type == ADMIN && getExtValueItemWhiteListStatus(oracleWhiteListAddress, account) != ADMIN) then throw("an ADMIN account can be created by another ADMIN only")
+    else 
+    WriteSet([
+        DataEntry(getKeyWhitelistBio(account), data),
+        DataEntry(getKeyWhitelistStatus(account), 
+        if (type == MODERATOR) then MODERATOR 
+        else if (type == ADMIN) then ADMIN 
+        else WHITELISTED)
+    ])
+}
+@Callable(i)
+func signupbylink(hash: String, data: String, type: String) = {
+    let account = toBase58String(i.caller.bytes)
+    let status = getExtValueItemWhiteListStatus(oracleWhiteListAddress, hash)
+    if (status != INVITED)
+        then throw("Referral invite needed. Current status: " + status + ", key:" + getKeyWhitelistStatus(hash) + ", account:" + hash)
+    else {
+        WriteSet([
+            DataEntry(getKeyWhitelistBio(account), data),
+            DataEntry(getKeyWhitelistBlock(account), height),
+            DataEntry(getKeyWhitelistStatus(account), if (type == MODERATOR) then MODERATOR else WHITELISTED),
+            DataEntry(getKeyWhitelistStatus(hash), SPENDINVITE),
+            DataEntry(getKeyWhitelistRef(account), getValueWhitelistRef(hash))
+        ])
+    }
+}
+@Callable(i)
+func signup(data: String, type: String) = {
+    let account = toBase58String(i.caller.bytes)
+    let status = getExtValueItemWhiteListStatus(oracleWhiteListAddress, account)
+    if (status == NONE)
+        then throw("Referral invite needed. Current status: " + status + ", key:" + getKeyWhitelistStatus(account) + ", account:" + account)
+    else {
+        WriteSet([
+            DataEntry(getKeyWhitelistBio(account), data),
+            DataEntry(getKeyWhitelistBlock(account), height),
+            DataEntry(getKeyWhitelistStatus(account), if (type == MODERATOR) then MODERATOR else WHITELISTED)
+        ])
+    }
+}
+
+@Callable(i)
+func reportProject(item: String, data: String) = {
+    let account = toBase58String(i.caller.bytes)
+    WriteSet([
+        DataEntry(getKeyItemAccReportData(item, account), data)
+    ])
+}
