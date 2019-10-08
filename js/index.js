@@ -1,3 +1,39 @@
+let WUSD = 'Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck';
+let WEUR = 'Gtb1WRznfchDnTh37ezoDTJ4wcoKaRsKqKjJjy7nm2zU';
+let WBTC = '8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS';
+let KOLIN ='FiKspxSpkpzT4pMUA9ccZkbJmVXTdu4JhFDXNNXr5noW';
+let WETH = '474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu';
+let WLTC = 'HZk1mbfuJpmxU1Fs4AX5MWLVYtctsNcg6e2C6VKqK8zk';
+let workToSubmitName ="";
+let workToSubmitType="";
+let workToSubmitModified="";
+let workToSubmitBytes="";
+let workToSubmitWords="";
+let workToSubmitCharacters="";
+let workToSubmitLines="";
+let workToSubmitHash256="";
+let workToSubmitHash512="";
+let workToSubmitFutureBlocks ="";
+let workToSubmitAssetID = "";
+let amountToPay = "";
+let datajson ="";
+let workToSubmitAmountToPay = "";
+let workToSubmitAssetIDChosen= "";
+let currencySelectedToPayWith = document.querySelectorAll('[name="currency"]');
+for (let i = 0; i < currencySelectedToPayWith.length; i++) {
+  currencySelectedToPayWith[i].addEventListener("click", function() {
+    workToSubmitAssetID = document.querySelector('[name="currency"]:checked').value;
+    console.log(workToSubmitAssetID);
+    if (workToSubmitAssetID == "WBTC"){(workToSubmitAmountToPay = priceToPayInWBTC)&&(workToSubmitAssetIDChosen = "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS")}
+    else if (workToSubmitAssetID == "WUSD"){(workToSubmitAmountToPay = priceToPayInWUSD)&&(workToSubmitAssetIDChosen ='Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck')}
+    else if (workToSubmitAssetID == "WEUR"){(workToSubmitAmountToPay = priceToPayInWEUR)&&(workToSubmitAssetIDChosen ='Gtb1WRznfchDnTh37ezoDTJ4wcoKaRsKqKjJjy7nm2zU')}
+    else if (workToSubmitAssetID == "KOLIN"){(workToSubmitAmountToPay = priceToPayInKOLIN)&&(workToSubmitAssetIDChosen ='FiKspxSpkpzT4pMUA9ccZkbJmVXTdu4JhFDXNNXr5noW')} 
+    else if (workToSubmitAssetID == "WAVES"){(workToSubmitAmountToPay = priceToPayInWAVES)&&(workToSubmitAssetIDChosen = 'WAVES')} 
+    else if (workToSubmitAssetID == "WETH"){(workToSubmitAmountToPay = priceToPayInWETH)&&(workToSubmitAssetIDChosen ='474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu')}
+    else if (workToSubmitAssetID == "WLTC"){(workToSubmitAmountToPay = priceToPayInWLTC)&&(workToSubmitAssetIDChosen = 'HZk1mbfuJpmxU1Fs4AX5MWLVYtctsNcg6e2C6VKqK8zk')}
+    else {console.log("please select a valid currency")} 
+ // amountToPay = document.querySelector('[name="currency"]').innerText;
+})};
 //Adds WavesKeeper functionalities
 //Calculate days in Month
 
@@ -311,7 +347,8 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks the button, open the modal
 btn.onclick = function() {
   modal.style.display = "block";
-  document.getElementById("ScriptToDeploy").value = Script;
+  document.getElementById("orderToSubmit").value = "You are submitting the following file: " + workToSubmitName;
+  document.getElementById("orderToSubmitData").value = "Your work has " + wordCount + " words and has a cost of " + workToSubmitAmountToPay + " " + workToSubmitAssetID;
 };
 
 // When the user clicks on <span> (x), close the modal
@@ -330,36 +367,54 @@ window.onclick = function(event) {
 };
 //Signing the Script transaction
 document.getElementById("futureHeight").addEventListener("change", event => {
-  FutureHeight = document.getElementById("futureHeight").value;
-  if (currentHeight+FutureHeight <= currentHeight) {
+  workToSubmitFutureBlocks = FutureHeight = document.getElementById("futureHeight").value;
+  if (currentHeight+FutureHeight <= currentHeight || FutureHeight <1440) {
     alert("please choose a height higher than current height " + currentHeight);
-    Script = "please choose a height higher than current height" + currentHeight;
+    //Script = "please choose a height higher than current height" + currentHeight;
     document.getElementById("acceptDeployment").style.visibility = "hidden";
   } else {
     document.getElementById("acceptDeployment").style.visibility = "visible";
-    Script =
-      "{-# STDLIB_VERSION 3 #-}{-# CONTENT_TYPE DAPP #-}{-# SCRIPT_TYPE ACCOUNT #-}@Verifier(tx)func verify() = {match tx {case o: SetScriptTransaction => sigVerify(tx.proofs[0], tx.bodyBytes, base58'" +
-      WavesAddress +
-      "') case o: TransferTransaction => (lastBlock.height >" +
-      FutureHeight.toString() +
-      ")case _ => false}}";
-    base64Script = "base64:" + btoa(Script);
+    
   }
 });
 
-function deployScript() {
-  WavesKeeper.signAndPublishTransaction({
-    type: 13,
-    data: {
-      script: base64Script,
-      fee: {
-        tokens: "0.04",
-        assetId: "WAVES"
-      }
-    }
-  })
+function submitWork() {
+  datajson = {
+    "Name": workToSubmitName,
+"Type": workToSubmitType,
+"Modified": workToSubmitModified,
+"Bytes": workToSubmitBytes,
+"Words": workToSubmitWords,
+"Characters": workToSubmitCharacters,
+"Lines": workToSubmitLines,
+"Hash256": workToSubmitHash256,
+"Hash512": workToSubmitHash512,
+}
+WavesKeeper.signAndPublishTransaction({
+    type: 16,
+    fee: {
+      "tokens": "1000",
+      "assetId": KOLIN
+    },
+    dApp: '3N2FjnCq4gcpewsYQVT4scz9MjTgD6a4kQK',
+    call: {
+            function: 'submitTranslation',
+            args: [
+              {
+                type: "string", key: "document", value: workToSubmitName,
+                      type: "string", key: "data", value: datajson,
+                      type: "string", key: "assetID", value: workToSubmitAssetID,
+                      type: "integer", key: "futureBlocks", value: workToSubmitFutureBlocks,
+                      type: "integer", key: "wordCount" , value: workToSubmitWords,
+                      type: "integer", key: "typeOfWork", value: selectedPrice/10,
+                      type: "integer", key: "priceAssetId", value: workToSubmitAmountToPay,
+                    
+              }],
+      }, payment: [{assetId: workToSubmitAssetIDChosen, tokens: workToSubmitAmountToPay}],
+},
+  )
     .then(tx => {
-      console.log("Your account has been locked until block " + FutureHeight);
+      console.log("Your translation work has been posted succesfully");
     })
     .catch(error => {
       console.error("Something went wrong", error);

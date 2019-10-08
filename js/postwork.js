@@ -1,6 +1,14 @@
 //select card
 var userSelectionOld = "";
 var wordCount = "";
+let priceToPayInWUSD = "";
+let priceToPayInEUR = "";
+let priceToPayInKOLIN = "";
+let priceToPayInWAVES = "";
+let priceToPayInWBTC = ""; 
+let priceToPayInWETH = "";
+let priceToPayInWLTC = "";
+
 function usdKOLIN(){
 var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -155,12 +163,11 @@ function wc(i) {
   document.getElementById("quotePrices").style.display = "inline";
   document.getElementById("quotePrices").scrollIntoView();
   WordCount.bytes("drop_zone" || "input", function(size) {
-    document.getElementById("fileBytes").innerText = size;
+    workToSubmitBytes = document.getElementById("fileBytes").innerText = size;
   });
 
   WordCount.words("drop_zone" || "input", function(words) {
-    document.getElementById("fileWords").innerText = words;
-    wordCount = words;
+    workToSubmitWords = wordCount = document.getElementById("fileWords").innerText = words;
     document.getElementById("quoteWORDS").innerText = ": " + wordCount.toLocaleString("en") + " words";
     document.getElementById("quotewUSD").innerText = ": " + ((wordCount*((parseInt(selectedPrice)+1)/10)).toFixed(2)).toLocaleString("en") + " USD";
     document.getElementById("quotewEUR").innerText = ": " + ((wordCount*((parseInt(selectedPrice)+1)/10)/usdEUR).toFixed(2)).toLocaleString("en") + " EUR";
@@ -169,10 +176,19 @@ function wc(i) {
     document.getElementById("quoteBTC").innerText = ": " + (wordCount*((parseInt(selectedPrice)+1)/10)/usdBTC).toLocaleString("en") + " BTC";
     document.getElementById("quoteETH").innerText = ": " + ((wordCount*((parseInt(selectedPrice)+1)/10)/usdETH).toFixed(2)).toLocaleString("en") + " ETH";
     document.getElementById("quoteLTC").innerText = ": " + ((wordCount*((parseInt(selectedPrice)+1)/10)/usdLTC).toFixed(2)).toLocaleString("en") + " LTC";
+    priceToPayInWUSD = wordCount*((parseInt(selectedPrice)+1)/10) ;
+    priceToPayInWEUR = wordCount*((parseInt(selectedPrice)+1)/10)/usdEUR;
+    priceToPayInKOLIN = wordCount*((parseInt(selectedPrice)+1)/10)/usdKOLIN;
+    priceToPayInWAVES = wordCount*((parseInt(selectedPrice)+1)/10)/usdWAVES;
+    priceToPayInWBTC = wordCount*((parseInt(selectedPrice)+1)/10)/usdBTC; 
+    priceToPayInWETH = wordCount*((parseInt(selectedPrice)+1)/10)/usdETH;
+    priceToPayInWLTC = wordCount*((parseInt(selectedPrice)+1)/10)/usdLTC;
+ 
+ 
   });
 
   WordCount.lines("drop_zone" || "input", function(lines) {
-    document.getElementById("fileLines").innerText = lines;
+    workToSubmitLines = document.getElementById("fileLines").innerText = lines;
   });
 
   //WordCount.longest("drop_zone" || "input", function(longest) {
@@ -180,23 +196,24 @@ function wc(i) {
   //});
 
   WordCount.chars("drop_zone" || "input", function(chars) {
-    document.getElementById("fileChars").innerText = chars;
+    workToSubmitCharacters = document.getElementById("fileChars").innerText = chars;
   });
   //handling files
 
   var files = i.files;
   for (var i = 0; i < files.length; i++) {
-    document.getElementById("fileName").innerText = files[i].name;
-    document.getElementById("fileType").innerText = files[i].type || "n/a";
-    document.getElementById("fileModified").innerText =
+    workToSubmitName = document.getElementById("fileName").innerText = files[i].name;
+    workToSubmitType = document.getElementById("fileType").innerText = files[i].type || "n/a";
+    workToSubmitModified = document.getElementById("fileModified").innerText =
     new Date(files[i].lastModified) || "n/a";
-    document.getElementById("file256Hash").innerText = CryptoJS.SHA256(files[i].name);
-    document.getElementById("file512Hash").innerText = CryptoJS.SHA512(files[i].name);
+   workToSubmitHash256 = document.getElementById("file256Hash").innerText = CryptoJS.SHA256(files[i].name);
+   workToSubmitHash512 = document.getElementById("file512Hash").innerText = CryptoJS.SHA512(files[i].name);
    
     }
     
   }
 
+  
 
 /*
 //handling files
