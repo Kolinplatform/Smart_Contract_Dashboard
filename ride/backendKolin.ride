@@ -5,7 +5,7 @@
 let oracleWhiteListAddress = Address(base58'3MvJMBxdrVAf1nCHiarJcQVnKy91HhBKe6w')
 let thisAddressPublicKey = base58'7A8H5cWfJVSpSrnB71CzWqyNm8KMxZPjwFcj1mDUU8an' #PublicKey
 let DAPPADDRESS = "3N2FjnCq4gcpewsYQVT4scz9MjTgD6a4kQK"
-let ADMIN = "3NCKoFQxRf7zsDNbivLFw1oJ7y8qJzLmEs4"
+let ADMINADDRESS = "3NCKoFQxRf7zsDNbivLFw1oJ7y8qJzLmEs4"
 #asset IDs
 let WUSD = base58'Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck'
 let WEUR = base58'Gtb1WRznfchDnTh37ezoDTJ4wcoKaRsKqKjJjy7nm2zU'
@@ -36,7 +36,10 @@ func getStrByKey(key: String) = {
 let WHITELISTED = "WHITELISTED" 
 let BLACKLISTED = "BLACKLISTED"
 let INVITED = "INVITED"
+let INVITEDMODERATOR = "INVITEDMODERATOR"
+let INVITEDADMIN = "INVITEDADMIN"
 let SPENDINVITE = "SPEND_INVITE"
+let ADMIN = "ADMIN"
 let MODERATOR = "MODERATOR"
 let QUORUM = 5
 
@@ -452,29 +455,40 @@ func getExtValueItemWhiteListStatus(oracle: Address, account: String) = {
 
 
 @Callable(i)
-    func inviteuser(newaccount: String, data: String) = {
+    func inviteuser(newaccount: String, data: String, type: String) = {
     let caller = toBase58String(i.caller.bytes)
     let newstatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, newaccount)
     let currstatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, caller)
-    if (newstatus == WHITELISTED || newstatus == MODERATOR ||  newstatus == ADMIN)
-        then throw("User has already been registered")
-    else if (newstatus == BLACKLISTED) 
-        then throw("The user you want to invite is already Blacklisted")
-    else if (currstatus != WHITELISTED && caller != DAPPADDRESS && currstatus != ADMIN)
-        then throw("Your account should be whitelisted. status: " + currstatus)
+    if (newstatus == BLACKLISTED) 
+        then throw("The user you want to invite is Blacklisted")
+    else if (type != WHITELISTED || type != MODERATOR ||  type != ADMIN)
+        then throw("Updated type not recognised")
+    else if ((newstatus == INVITEDADMIN)||(newstatus == INVITEDMODERATOR)||(newstatus == INVITED)) 
+        then throw("The user you want to invite has already been invited")
+    else if (currstatus != WHITELISTED && caller != DAPPADDRESS && currstatus != ADMIN && currstatus != MODERATOR)
+        then throw("Your account should be registered to invite other user. status: " + currstatus)
+    else if (type == MODERATOR && (currstatus != ADMIN || currstatus != MODERATOR)) 
+        then throw("Your account is not allowed to invite moderators")
+     else if (type == ADMIN && currstatus != ADMIN )
+        then throw("You must be an admin to invite admins")
     else {
         WriteSet([
             DataEntry(getKeyWhitelistRef(newaccount), caller),
             DataEntry(getKeyWhitelistBio(newaccount), data),
-            DataEntry(getKeyWhitelistStatus(newaccount), INVITED)
+            if (type == ADMIN) then DataEntry(getKeyWhitelistStatus(newaccount), INVITEDADMIN)
+            else if (type == MODERATOR) then DataEntry(getKeyWhitelistStatus(newaccount), INVITEDMODERATOR)
+            else DataEntry(getKeyWhitelistStatus(newaccount), INVITED)
         ])
     }
 }
 @Callable(i)
 func userupdate(data: String, type: String) = {
     let account = toBase58String(i.caller.bytes)
-    if ((type == MODERATOR || type == ADMIN ) && (getExtValueItemWhiteListStatus(oracleWhiteListAddress, account) == WHITELISTED)) then throw("an ADMIN or MODERATOR account can be created by an ADMIN only")
-    else if (type == ADMIN && getExtValueItemWhiteListStatus(oracleWhiteListAddress, account) != ADMIN) then throw("an ADMIN account can be created by another ADMIN only")
+    let accountStatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, account)
+    if (accountStatus == BLACKLISTED) then throw("your account is blacklisted")
+    else if (accountStatus != WHITELISTED || accountStatus != ADMIN || accountStatus != MODERATOR) then throw("your account is not authorized to change status")
+    else if (type == ADMIN && accountStatus != ADMIN) then throw("an ADMIN account can be created by another ADMIN only")
+    else if (type == MODERATOR && (accountStatus != ADMIN || accountStatus != MODERATOR)) then throw("a MODERATOR account can be created by an ADMIN only")
     else 
     WriteSet([
         DataEntry(getKeyWhitelistBio(account), data),
@@ -485,32 +499,34 @@ func userupdate(data: String, type: String) = {
     ])
 }
 @Callable(i)
-func signupbylink(hash: String, data: String, type: String) = {
+func signupbylink(data: String) = {
     let account = toBase58String(i.caller.bytes)
-    let status = getExtValueItemWhiteListStatus(oracleWhiteListAddress, hash)
-    if (status != INVITED)
-        then throw("Referral invite needed. Current status: " + status + ", key:" + getKeyWhitelistStatus(hash) + ", account:" + hash)
+    let accountStatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, account)
+    if (accountStatus != INVITEDADMIN || accountStatus != INVITEDMODERATOR || accountStatus != INVITED)
+        then throw("Referral invite needed. Current status: " + accountStatus + ", key:" + getKeyWhitelistStatus(account) + ", account:" + account)
     else {
         WriteSet([
             DataEntry(getKeyWhitelistBio(account), data),
             DataEntry(getKeyWhitelistBlock(account), height),
-            DataEntry(getKeyWhitelistStatus(account), if (type == MODERATOR) then MODERATOR else WHITELISTED),
-            DataEntry(getKeyWhitelistStatus(hash), SPENDINVITE),
-            DataEntry(getKeyWhitelistRef(account), getValueWhitelistRef(hash))
+            if (accountStatus == INVITEDADMIN) then  DataEntry(getKeyWhitelistStatus(account), ADMIN)
+            else if (accountStatus == INVITEDMODERATOR) then DataEntry(getKeyWhitelistStatus(account), MODERATOR)
+            else DataEntry(getKeyWhitelistStatus(account), WHITELISTED)
         ])
     }
 }
 @Callable(i)
-func signup(data: String, type: String) = {
+func signup(data: String) = {
     let account = toBase58String(i.caller.bytes)
-    let status = getExtValueItemWhiteListStatus(oracleWhiteListAddress, account)
-    if (status == NONE)
-        then throw("Referral invite needed. Current status: " + status + ", key:" + getKeyWhitelistStatus(account) + ", account:" + account)
+    let accountStatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, account)
+    if (accountStatus == BLACKLISTED)
+        then throw("your account has been blacklisted")
+    else if (accountStatus != NONE)
+        then throw("Your account is already registered. Current status: " + accountStatus + ", key:" + getKeyWhitelistStatus(account) + ", account:" + account)
     else {
         WriteSet([
             DataEntry(getKeyWhitelistBio(account), data),
             DataEntry(getKeyWhitelistBlock(account), height),
-            DataEntry(getKeyWhitelistStatus(account), if (type == MODERATOR) then MODERATOR else WHITELISTED)
+            DataEntry(getKeyWhitelistStatus(account), WHITELISTED)
         ])
     }
 }
@@ -520,5 +536,19 @@ func reportProject(item: String, data: String) = {
     let account = toBase58String(i.caller.bytes)
     WriteSet([
         DataEntry(getKeyItemAccReportData(item, account), data)
+    ])
+}
+
+
+@Callable(i)
+func reportUser(user: String, data: String) = {
+    let account = toBase58String(i.caller.bytes)
+    let accountStatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, account)
+    if (accountStatus != ADMIN || accountStatus != MODERATOR)
+    then throw("just and ADMIN or MODERATOR can report an user")
+    else
+    WriteSet([
+        DataEntry(getKeyItemAccReportData(user, account), data),
+        DataEntry(getKeyWhitelistStatus(user), BLACKLISTED)
     ])
 }
