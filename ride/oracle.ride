@@ -8,12 +8,14 @@ func getExtValueItemWhiteListStatus(status: String) = {
     status
 }
 let verifier= "3NCKoFQxRf7zsDNbivLFw1oJ7y8qJzLmEs4"
-let WHITELISTED = "registered"
-let BLACKLISTED = "blacklisted"
-let INVITED = "invited"
-let SPENDINVITE = "spend_invite"
-let MODERATOR = "moderator"
-let ADMIN = "admin"
+let WHITELISTED = "WHITELISTED" 
+let BLACKLISTED = "BLACKLISTED"
+let INVITED = "INVITED"
+let INVITEDMODERATOR = "INVITEDMODERATOR"
+let INVITEDADMIN = "INVITEDADMIN"
+let SPENDINVITE = "SPEND_INVITE"
+let ADMIN = "ADMIN"
+let MODERATOR = "MODERATOR"
 
 #@Verifier(i)
  #   func verify() = {
@@ -28,7 +30,7 @@ func setstatus(account: String, status: String) ={
     let caller = toBase58String(i.caller.bytes)
     if ( caller != verifier && (getExtValueItemWhiteListStatus(caller) != MODERATOR || getExtValueItemWhiteListStatus(caller) != ADMIN) ) 
     then throw("only Kolin ADMINS or MODERATORS can manage the whitelist")
-    else if ( caller != verifier && (status != WHITELISTED || status != BLACKLISTED || status != INVITED || status != MODERATOR || status != ADMIN || status != SPENDINVITE))
+    else if ( caller != verifier && (status != WHITELISTED || status != BLACKLISTED || status != INVITED || status != INVITEDMODERATOR || status != INVITEDADMIN || status != MODERATOR || status != ADMIN || status != SPENDINVITE))
         then throw("status not recognised")
     else{
         WriteSet(
@@ -38,4 +40,4 @@ func setstatus(account: String, status: String) ={
         )
     }
 }
-# WHITELISTED || BLACKLISTED || INVITED || MODERATOR || ADMIN || SPENDINVITE
+# WHITELISTED || BLACKLISTED || INVITED || MODERATOR || ADMIN || INVITEDMODERATOR || INVITEDADMIN
