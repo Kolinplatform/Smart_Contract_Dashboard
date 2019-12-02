@@ -2,10 +2,10 @@
 {-# CONTENT_TYPE DAPP #-}
 {-# SCRIPT_TYPE ACCOUNT #-}
 #Oracle used for disputes
-let oracleWhiteListAddress = Address(base58'3MvJMBxdrVAf1nCHiarJcQVnKy91HhBKe6w')
-let thisAddressPublicKey = base58'7A8H5cWfJVSpSrnB71CzWqyNm8KMxZPjwFcj1mDUU8an' #PublicKey
-let DAPPADDRESS = "3N2FjnCq4gcpewsYQVT4scz9MjTgD6a4kQK"
-let ADMINADDRESS = "3NCKoFQxRf7zsDNbivLFw1oJ7y8qJzLmEs4"
+let oracleWhiteListAddress = Address(base58'3P8YjrYqMjLqZfVqraRa69R1HKvv5gKmF9P')
+let thisAddressPublicKey = base58'9DRdmVjXZPbQPQ7EfFyoaEHB1g8rg4FCEhANpimwaP78' #PublicKey
+let DAPPADDRESS = "3PBJG85FaSkeF7Lc49S7wj6EvmGY2mpcWZa"
+let ADMINADDRESS = "3P4rmEtPiBxarscB4g5viRHyvnudv5nJ8mv"
 #asset IDs
 let WUSD = base58'Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck'
 let WEUR = base58'Gtb1WRznfchDnTh37ezoDTJ4wcoKaRsKqKjJjy7nm2zU'
