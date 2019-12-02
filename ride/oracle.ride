@@ -7,7 +7,8 @@ func getExtKeyItemWhiteListStatus(account: String) = {
 func getExtValueItemWhiteListStatus(status: String) = {
     status
 }
-let verifier= "3NCKoFQxRf7zsDNbivLFw1oJ7y8qJzLmEs4"
+let verifier= "3PBJG85FaSkeF7Lc49S7wj6EvmGY2mpcWZa"
+let thisAddressPublicKey = base58'9RZbApT5gWH3SBbRJiNMt92C356eurKyJB7sZJhqbYzo' #PublicKey
 let WHITELISTED = "WHITELISTED" 
 let BLACKLISTED = "BLACKLISTED"
 let INVITED = "INVITED"
