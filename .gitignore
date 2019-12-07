@@ -1,7 +1,7 @@
 ride/wallets.txt
-demo/.well-known
-demo/cgi-bin
-demo/chat
-demo/translate5
-demo/.htaccess
+.well-known
+cgi-bin
+chat
+translate5
+.htaccess
 

@@ -165,8 +165,8 @@
           </li>
           <li class="nav-item dropdown d-none d-xl-inline-block">
             <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-              <span class="profile-text">Hello, Mauricio Estephan !</span>
-              <img class="img-xs rounded-circle" src="../../images/faces/face1.jpg" alt="Profile image">
+              <span class="profile-text">Hello, <span class="profile-name">Mauricio Estephan</span> !</span>
+              <img class="img-xs rounded-circle profile-pic" src="../../images/faces/face1.jpg" alt="Profile image">
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
               <a class="dropdown-item p-0">
@@ -209,17 +209,21 @@
         <ul class="nav">
           <li class="nav-item nav-profile">
             <div class="nav-link">
-              <div class="user-wrapper">
-                <div class="profile-image">
-                  <img src="../../images/faces/face1.jpg" alt="profile image">
-                </div>
+              <div class="user-wrapper">       
                 <div class="text-wrapper">
-                  <p class="profile-name">Mauricio Estephan</p>
-                  <div>
-                    <small class="designation text-muted">Translator</small>
-                    <span class="status-indicator online"></span>
+                  <div class="profile-image">
+                     <img class="profile-pic" src="../../images/faces/face1.jpg" alt="profile image">
                   </div>
                 </div>
+              </div>
+              <div class="user-wrapper">       
+               <div class="text-wrapper">
+                <small class="profile-name pr-2">Mauricio Estephan</small>
+                <div>
+                  <small class="designation text-muted">Translator</small>
+                  <span class="status-indicator online"></span>
+                </div>
+               </div>
               </div>
               <a class="btn btn-success btn-block" href="../../pages/postwork/index.html">Post job
                 <i class="mdi mdi-plus"></i>
@@ -772,7 +776,8 @@
     <!-- Custom Scripts -->
     <script type="text/javascript" src="js/script.js"></script>
 	<!-- Waveskeeper JS -->
-	<script src="../../js/waveskeeper.js"></script>
+  <script src="../../js/waveskeeper.js"></script>
+  <script src="../../js/index.js"></script>
 </body>
 	
 

@@ -415,7 +415,7 @@ WavesKeeper.signAndPublishTransaction({
 }
 })
     .then(tx => {
-      console.log("Your translation work has been posted succesfully");
+      console.log("Your translation work has been posted successfully");
     })
     .catch(error => {
       console.error("Something went wrong", error);

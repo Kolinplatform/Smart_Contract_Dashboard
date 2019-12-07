@@ -22,10 +22,26 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	
 	<script src="../../js/sorttable.js"></script>
-	
-	
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script>
+window.addEventListener("load", function(){
+window.cookieconsent.initialise({
+  "palette": {
+    "popup": {
+      "background": "#383b75"
+    },
+    "button": {
+      "background": "#f1d600"
+    }
+  },
+  "theme": "classic",
+  "content": {
+    "href": "https://kolinplatform.com/cookies/"
+  }
+})});
+</script>
 </head>
-
 <body>
   <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
@@ -169,8 +185,8 @@
           </li>
           <li class="nav-item dropdown d-none d-xl-inline-block">
             <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-              <span class="profile-text">Hello, Mauricio Estephan !</span>
-              <img class="img-xs rounded-circle" src="../../images/faces/face1.jpg" alt="Profile image">
+              <span class="profile-text">Hello, <span class="profile-name">Mauricio Estephan</span>  !</span>
+              <img class="img-xs rounded-circle profile-pic" src="../../images/faces/face1.jpg" alt="Profile image">
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
               <a class="dropdown-item p-0">
@@ -213,17 +229,21 @@
         <ul class="nav">
           <li class="nav-item nav-profile">
             <div class="nav-link">
-              <div class="user-wrapper">
-                <div class="profile-image">
-                  <img src="../../images/faces/face1.jpg" alt="profile image">
-                </div>
+              <div class="user-wrapper">       
                 <div class="text-wrapper">
-                  <p class="profile-name">Mauricio Estephan</p>
-                  <div>
-                    <small class="designation text-muted">Translator</small>
-                    <span class="status-indicator online"></span>
+                  <div class="profile-image">
+                     <img class="profile-pic" src="../../images/faces/face1.jpg" alt="profile image">
                   </div>
                 </div>
+              </div>
+              <div class="user-wrapper">       
+               <div class="text-wrapper">
+                <small class="profile-name pr-2">Mauricio Estephan</small>
+                <div>
+                  <small class="designation text-muted">Translator</small>
+                  <span class="status-indicator online"></span>
+                </div>
+               </div>
               </div>
               <a class="btn btn-success btn-block" href="../../pages/postwork/index.html">Post job
                 <i class="mdi mdi-plus"></i>
@@ -305,14 +325,13 @@
           </li>
         </ul>
       </nav>
-
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
 			<div class="row purchace-popup">
             <div class="col-12">
               <span class="d-block d-md-flex align-items-center">
-                <p>This section is retrieving real time information from the Blockchain and will be powered by </p>
+                <p>This section is retrieving real time information from the Blockchain and is powered by </p>
                 <a class="btn ml-auto  d-none d-md-block" target="_blank"></a>
                 <a class="btn purchase-button mt-4 mt-md-0" target="_blank">Waves<svg height="12" width="10"><path fill="#fff" d="M8,4,4,8,0,4,4,0Z"></path></svg>keeper</a>
                 <i class="mdi mdi-close popup-dismiss d-none d-md-block"></i>
@@ -322,27 +341,87 @@
           <div class="row">
            <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
-                <div class="card-body">
+                <div class="card-body ">
 					<h4 class="card-title">Balance</h4>
+					<input id="WavesAddress" type="text" value="add your Waves address" style="width:90%" onChange="getbalance()"/>
 					<div class="row">
-                  <div class="col-md-6 pt-5"><svg><path  d="M45,52.3a3,3,0,0,0,4.93,2.29L96.8,15.24a4,4,0,0,0-.52-6.49A64,64,0,0,0,51.53,1.22,8,8,0,0,0,45,9.08Z" fill="#016699"></path><path fill="#3499cc" class="st1" d="M104.51,108.8a4,4,0,0,0,5.43-.25,64,64,0,0,0,0-89.1,4,4,0,0,0-5.43-.25L54.9,60.94a4,4,0,0,0,0,6.12Z"></path><path fill="#016699" d="M37,12.64a4,4,0,0,0-6.08-3.42,64,64,0,0,0,0,109.56A4,4,0,0,0,37,115.36Z"></path><path fill="#016699" d="M45,75.7v43.22a8,8,0,0,0,6.53,7.86,64,64,0,0,0,44.75-7.53,4,4,0,0,0,.52-6.49L49.93,73.41A3,3,0,0,0,45,75.7Z"></path></svg></div>
-					<div class="col-md-6 pt-4">
-					<h4 class="d-flex align-items-end pt-xl-5">Total Balance</h4>
-					<h2 class="d-flex mt-lg-4">2,860,900.00</h2>
-					</div>
+                  				
+					<div class="col-md-4 pt-5">
+					  <div id="qrcode" class="pl-5 py-4 zoom"></div>
 
-				  </div>
-					<!--	<div class="row mt-4">
-							
-							<svg class="pl-5"><path transform="scale(0.4)" fill="blue" d="M128,64,64,128,0,64,64,0Z"></path></svg>
-					</div> -->
+<script src="../../js/qrcode.min.js"></script>
+
+<script>var qrcode = new QRCode("qrcode",{
+		width: 80,
+        height: 80,});
+
+function makeCode () {		
+	var elText = document.getElementById("WavesAddress");
+	
+	if (!elText.value) {
+		alert("Add a Waves address");
+		elText.focus();
+		return;
+	}
+	
+	qrcode.makeCode(elText.value);
+}
+makeCode();
+$("#WavesAddress").
+	on("blur", function () {
+		makeCode();
+	}).
+	on("keydown", function (e) {
+		if (e.keyCode == 13) {
+			makeCode();
+		}
+	});
+						
+		//Import Kolin Balance
+function getbalance() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    var text = this.responseText
+      var obj = JSON.parse(text);
+		
+document.getElementById("KolinBalance").innerHTML = (obj.balance/100).toLocaleString();
+document.getElementById("percentageKolinHolder").innerHTML = ((obj.balance/300000000000)*100).toFixed(1); 
+    }
+  };
+	var WavesAddress = document.getElementById("WavesAddress").value;
+  xhttp.open("GET", "https://nodes.wavesnodes.com/assets/balance/" + WavesAddress + "/FiKspxSpkpzT4pMUA9ccZkbJmVXTdu4JhFDXNNXr5noW?t=", true);
+  xhttp.send();
+}				
+						</script>
+					</div>
+						<div class="col-md-8 pt-2">
+					<h4 class="d-flex align-items-end pt-xl-5">Total Balance</h4>
+					<h2 class="d-flex mt-lg-4"><svg width="40" height="30">
+              <path  transform="scale(0.25)"   d="M112.1,59.5c0,0-31.1,26.2-32.7,28.8c-1.1,1.8,32.7,28.8,32.7,28.8H96.6L62.7,88.3l35.9-28.8H112.1z"/>
+              <polygon transform="scale(0.25)"  class="st0" points="80.6,67.3 61.9,83.9 61.9,67.3"/>
+              <polygon transform="scale(0.25)"  class="st0" points="80.6,109.7 61.9,93.1 61.9,109.7"/>
+              <path transform="scale(0.25)"   d="M102.1,30.8c-20.1,0-36.9,16-40.1,36.5c4.6-17,19.3-29.7,36.6-29.7c21.1,0,38.2,18.3,38.2,40.8
+              c0,17.1-10.8,32.6-24.7,38.7c17.2-5.1,30.7-22.9,30.7-42.8C142.7,50.3,124.5,30.8,102.1,30.8z"/>
+        </svg><span id="KolinBalance">0</span></h2>
+					<p class="text-muted mt-3 mb-0"> <em class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></em> holds <strong id="percentageKolinHolder">0</strong> % supply </p>
+					</div>
+					<div class="col-md-4 pt-5"> </div>
+					
+					</div>
+				  <div class="row">
+					<!--	<div class="col-md-12 mt-4"><svg class="pl-4"><path transform="scale(2)" fill="#FF9900" d="M11.5 11.5v-2.5c1.75 0 2.789.25 2.789 1.25 0 1.172-1.684 1.25-2.789 1.25zm0 .997v2.503c1.984 0 3.344-.188 3.344-1.258 0-1.148-1.469-1.245-3.344-1.245zm12.5-.497c0 6.627-5.373 12-12 12s-12-5.373-12-12 5.373-12 12-12 12 5.373 12 12zm-7 1.592c0-1.279-1.039-1.834-1.789-2.025.617-.223 1.336-1.138 1.046-2.228-.245-.922-1.099-1.74-3.257-1.813v-1.526h-1v1.5h-.5v-1.5h-1v1.5h-2.5v1.5h.817c.441 0 .683.286.683.702v4.444c0 .429-.253.854-.695.854h-.539l-.25 1.489h2.484v1.511h1v-1.511h.5v1.511h1v-1.5c2.656 0 4-1.167 4-2.908z"></path></svg></div>-->
+					
+						<!--	<div class="col-md-12"><svg class="pl-4"><path transform="scale(0.4)" fill="blue" d="M128,64,64,128,0,64,64,0Z"></path></svg></div>-->
+					
+						    </div>
                 </div>
               </div>
             </div>
             <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Kolin stats</h4>
+                <div class="card-body bg-dark text-white">
+                  <h4 class="card-title text-white">Kolin stats</h4>
                     <div class="row"><div class="col-lg-6 col-md-6 grid-margin stretch-card">
               <p id="marketCap"></p></div>
 					<div class="col-lg-6 col-md-6 grid-margin stretch-card">
@@ -380,7 +459,7 @@
                             </span>
                           </div>
                           <input type="text" class="form-control" placeholder="Amount" id="Amount">
-                      <a class="btn btn-info text-white" onclick="sendkolin()">Send</a>     </div>
+                      <a class="btn btn-info text-white" onclick="sendkolin()">Send</a></div>
                </div>
                 </div>
               </div>
@@ -392,14 +471,24 @@
                   <div class="form-group">
                           <div class="input-group">
                             <div class="input-group-prepend bg-primary border-primary">
-                              <span class="input-group-text bg-transparent text-white">$</span>
+                              <span class="input-group-text bg-transparent text-white">
+                                <svg width="36" height="29" transform="translate(-10 -5)">
+                                      <path  transform="scale(0.25)"  fill="#fff" d="M112.1,59.5c0,0-31.1,26.2-32.7,28.8c-1.1,1.8,32.7,28.8,32.7,28.8H96.6L62.7,88.3l35.9-28.8H112.1z"/>
+                                      <polygon transform="scale(0.25)"  fill="#fff" class="st0" points="80.6,67.3 61.9,83.9 61.9,67.3"/>
+                                      <polygon transform="scale(0.25)"  fill="#fff" class="st0" points="80.6,109.7 61.9,93.1 61.9,109.7"/>
+                                      <path transform="scale(0.25)"  fill="#fff" d="M102.1,30.8c-20.1,0-36.9,16-40.1,36.5c4.6-17,19.3-29.7,36.6-29.7c21.1,0,38.2,18.3,38.2,40.8
+                                      c0,17.1-10.8,32.6-24.7,38.7c17.2-5.1,30.7-22.9,30.7-42.8C142.7,50.3,124.5,30.8,102.1,30.8z"/>
+                                </svg>
+                              </span>
                             </div>
-                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <input type="text" class="form-control" id="bamount">
+							  
                             <div class="input-group-append bg-primary border-primary">
                               <span class="input-group-text bg-transparent text-white">.00</span>
 								
                             </div>
-							  <button type="submit" class="btn btn-primary" onclick="buykolin()">Buy</button>
+							  <input class="hidden d-none" value="0.0001" id="bprice">
+							  <button type="submit" class="btn btn-primary" onclick="buybtckolin()">Buy</button>
                           </div>
                         </div>
                 </div>
@@ -412,7 +501,7 @@
                 <div class="card-body">
                   <h4 class="card-title">Kolin explorer</h4>
    			         <div class="table-responsive">
-						<table class="table sortable" id="myTable">
+						<table class="table sortable table-hover" id="myTable">
 				
 							<thead>
 								<tr>
@@ -470,6 +559,8 @@
 	
 	<!-- Waveskeeper js for this page-->
 <script src="../../js/waveskeeper.js"></script>
+<script src="../../js/index.js"></script>
+	
 </body>
 
 </html>
