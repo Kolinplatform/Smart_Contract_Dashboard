@@ -1,12 +1,7 @@
 {-# STDLIB_VERSION 3 #-}
 {-# CONTENT_TYPE DAPP #-}
 {-# SCRIPT_TYPE ACCOUNT #-}
-func getExtKeyItemWhiteListStatus(account: String) = {
-    "verifier_status_" + account 
-}
-func getExtValueItemWhiteListStatus(status: String) = {
-    status
-}
+
 let verifier= "3PBJG85FaSkeF7Lc49S7wj6EvmGY2mpcWZa"
 let thisAddressPublicKey = base58'9RZbApT5gWH3SBbRJiNMt92C356eurKyJB7sZJhqbYzo' #PublicKey
 let WHITELISTED = "WHITELISTED" 
@@ -17,20 +12,41 @@ let INVITEDADMIN = "INVITEDADMIN"
 let SPENDINVITE = "SPEND_INVITE"
 let ADMIN = "ADMIN"
 let MODERATOR = "MODERATOR"
+let oracleWhiteListAddress = Address(base58'3P8YjrYqMjLqZfVqraRa69R1HKvv5gKmF9P')
+let NONE = "none"
 
-#@Verifier(i)
- #   func verify() = {
-  #      match i {
-   #         case o: SetScriptTransaction => sigVerify(i.proofs[0], i.bodyBytes, base58'6KMPZeYtPd2PGkCrTio3BhGqeQrrtyQN9VQLp1Lm5PaL') 
-    #        case _ => false
-     #       }
-    #}
+func getExtKeyItemWhiteListStatus(account: String) = {
+    "verifier_status_" + account 
+}
+func getExtKeyItemWhiteListStatusBlock(account: String) = {
+    "verifier_status_block_" + account 
+}
+func getExtValueItemWhiteListStatusBlock(block: Int) = {
+    block 
+}
+func getExtValueItemWhiteListStatus(account: String) = {
+     let str = match getString(this, getExtKeyItemWhiteListStatus(account)){
+        case a: String => a 
+        case _ => NONE
+    }
+    str
+}
+
+
+#Protecting contract from editing
+@Verifier(i)
+   func verify() = {
+      match i {
+           case o: SetScriptTransaction => sigVerify(i.bodyBytes, i.proofs[0], i.senderPublicKey) 
+           case _ => false
+          }
+    }
 
 @Callable(i)
 func setstatus(account: String, status: String) ={
     let caller = toBase58String(i.caller.bytes)
     if ( caller != verifier && (getExtValueItemWhiteListStatus(caller) != MODERATOR || getExtValueItemWhiteListStatus(caller) != ADMIN) ) 
-    then throw("only Kolin ADMINS or MODERATORS can manage the whitelist")
+    then throw("only Kolin ADMINS or MODERATORS can manage the whitelist oracle")
     else if ( caller != verifier && (status != WHITELISTED || status != BLACKLISTED || status != INVITED || status != INVITEDMODERATOR || status != INVITEDADMIN || status != MODERATOR || status != ADMIN || status != SPENDINVITE))
         then throw("status not recognised")
     else{
@@ -39,6 +55,38 @@ func setstatus(account: String, status: String) ={
                 DataEntry(getExtKeyItemWhiteListStatus(account), status)
             ]
         )
+    }
+}
+@Callable(i)
+func signupbylink(data: String) = {
+    let account = toBase58String(i.caller.bytes)
+    let accountStatus = getExtValueItemWhiteListStatus(account)
+    if (accountStatus != INVITEDADMIN || accountStatus != INVITEDMODERATOR || accountStatus != INVITED)
+        then throw("Referral invite needed. Current status: " + accountStatus + ", key:" + getExtKeyItemWhiteListStatus(account) + ", account:" + account)
+    else {
+        WriteSet([
+            DataEntry(getExtKeyItemWhiteListStatus(data), data),
+            DataEntry(getExtKeyItemWhiteListStatusBlock(account), height),
+            if (accountStatus == INVITEDADMIN) then  DataEntry(getExtKeyItemWhiteListStatus(account), ADMIN)
+            else if (accountStatus == INVITEDMODERATOR) then DataEntry(getExtKeyItemWhiteListStatus(account), MODERATOR)
+            else DataEntry(getExtKeyItemWhiteListStatus(account), WHITELISTED)
+        ])
+    }
+}
+@Callable(i)
+func signup(data: String) = {
+    let account = toBase58String(i.caller.bytes)
+    let accountStatus = getExtValueItemWhiteListStatus(account)
+    if (accountStatus == BLACKLISTED)
+        then throw("your account has been blacklisted")
+    else if (accountStatus != NONE)
+        then throw("Your account is already registered. Current status: " + accountStatus + ", key:" + getExtKeyItemWhiteListStatus(account) + ", account:" + account)
+    else {
+        WriteSet([
+            DataEntry(getExtKeyItemWhiteListStatus(data), data),
+            DataEntry(getExtKeyItemWhiteListStatusBlock(account), height),
+            DataEntry(getExtKeyItemWhiteListStatus(account), WHITELISTED)
+        ])
     }
 }
 # WHITELISTED || BLACKLISTED || INVITED || MODERATOR || ADMIN || INVITEDMODERATOR || INVITEDADMIN

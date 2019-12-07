@@ -11,5 +11,6 @@
 Notice: all dApp operations with @Callable functions
 
 Testnet: 10 Sept 2019
-Medium article: 15 Sept 2019
-Mainnet: 20 Sept 2019
+Mainnet: 09 Dec 2019 (updated)
+
+

@@ -2,7 +2,7 @@
 //let amountToPayAssetId = 'Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck'
 it('submit', async function(){
     const tx = invokeScript({
-    dApp: '3MvJMBxdrVAf1nCHiarJcQVnKy91HhBKe6w',
+    dApp: '3P8YjrYqMjLqZfVqraRa69R1HKvv5gKmF9P',
     fee: 900000,
     call: {        
                function: "setstatus",
