@@ -475,6 +475,10 @@ func getExtValueItemWhiteListStatus(oracle: Address, account: String) = {
                 DataEntry(getKeyItemBalance(item), 0),
                 DataEntry(getKeyItemStatus(item), "money withdrawn by " + caller),
                 DataEntry(getKeyItemLastUpdate(item), height)
+                if (caller == getValueItemTranslator(item)) then 
+                DataEntry(getKeyUserCusVal(getValueItemAuthor(item)), getValueUserCusVal(getValueItemAuthor(item))+1)
+                else if (caller == getValueItemAuthor(item)) then 
+                DataEntry(getKeyUserTrnVal(getValueItemTranslator(item)), getValueUserTrnVal(getValueItemTranslator(item))+1)
             ]),
             TransferSet([ScriptTransfer(addressFromStringValue(caller), amount, fromBase58String(assetID))])
         )
