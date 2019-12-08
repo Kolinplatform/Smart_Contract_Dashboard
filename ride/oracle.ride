@@ -24,6 +24,9 @@ func getExtKeyItemWhiteListStatusBlock(account: String) = {
 func getExtValueItemWhiteListStatusBlock(block: Int) = {
     block 
 }
+func getKeyItemAccReportData(item: String, account: String) = {
+    "report_" + item + "_" + account
+}
 func getExtValueItemWhiteListStatus(account: String) = {
      let str = match getString(this, getExtKeyItemWhiteListStatus(account)){
         case a: String => a 
@@ -90,3 +93,24 @@ func signup(data: String) = {
     }
 }
 # WHITELISTED || BLACKLISTED || INVITED || MODERATOR || ADMIN || INVITEDMODERATOR || INVITEDADMIN
+@Callable(i)
+func reportProject(item: String, data: String) = {
+    let account = toBase58String(i.caller.bytes)
+    WriteSet([
+        DataEntry(getKeyItemAccReportData(item, account), data)
+    ])
+}
+
+
+@Callable(i)
+func reportUser(user: String, data: String) = {
+    let account = toBase58String(i.caller.bytes)
+    let accountStatus = getExtValueItemWhiteListStatus(account)
+    if (accountStatus != ADMIN || accountStatus != MODERATOR)
+    then throw("just and ADMIN or MODERATOR can report an user")
+    else
+    WriteSet([
+        DataEntry(getKeyItemAccReportData(user, account), data),
+        DataEntry(getExtKeyItemWhiteListStatus(user), BLACKLISTED)
+    ])
+}

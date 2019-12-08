@@ -49,6 +49,42 @@ func getKeyItem(user: String, item: String) = {
 func getValueItem(user: String, item: String) = {
     toBase58String(sha256(toBytes(user + item)))
 }
+func getKeyUserPosts(user: String) = {
+    "user_pst_" + user
+}
+func getValueUserPosts(user: String) = {
+    getNumberByKey(getKeyUserPosts(user))
+}
+func getKeyUserTrn(user: String) = {
+    "user_trn_" + user
+}
+func getValueUserTrn(user: String) = {
+    getNumberByKey(getKeyUserPosts(user))
+}
+func getKeyUserCusVal(user: String) = {
+    "user_cusv_" + user
+}
+func getValueUserCusVal(user: String) = {
+    getNumberByKey(getKeyUserPosts(user))
+}
+func getKeyUserTrnVal(user: String) = {
+    "user_trnv_" + user
+}
+func getValueUserTrnVal(user: String) = {
+    getNumberByKey(getKeyUserPosts(user))
+}
+func getKeyUserCusValTotal(user: String) = {
+    "user_cusv_total_" + user
+}
+func getValueUserCusValTotal(user: String) = {
+    getNumberByKey(getKeyUserPosts(user))
+}
+func getKeyUserTrnValTotal(user: String) = {
+    "user_trnv_total_" + user
+}
+func getValueUserTrnValTotal(user: String) = {
+    getNumberByKey(getKeyUserPosts(user))
+}
 func getKeyItemDocument(document: String) = {
     "item_" + document
 }
@@ -245,6 +281,8 @@ func getExtValueItemWhiteListStatus(oracle: Address, account: String) = {
             then throw("a translation work can not be posted for longer than 31 days (~44640 blocks) ")
         else WriteSet([ 
                 DataEntry(item, item),
+                DataEntry(getKeyUserPosts(user), getValueUserPosts(user)+1),
+                DataEntry(getKeyUserPosts(DAPPADDRESS), getValueUserPosts(DAPPADDRESS)+1),
                 DataEntry(getKeyItemAuthor(item), user),
                 DataEntry(getKeyItemBlock(item), height),
                 DataEntry(getKeyItemLastUpdate(item), height),
@@ -286,6 +324,8 @@ func getExtValueItemWhiteListStatus(oracle: Address, account: String) = {
         ScriptResult(
             WriteSet([
                 DataEntry(getKeyItemStatus(item), "work allocated to translator"),
+                DataEntry(getKeyUserTrn(translator), getValueUserPosts(translator)+1),
+                DataEntry(getKeyUserTrn(DAPPADDRESS), getValueUserTrn(DAPPADDRESS)+1),
                 DataEntry(getKeyItemTranslator(item), translator),
                 DataEntry(getKeyItemDueFor(item), deadlineblock),
                 DataEntry(getKeyItemLastUpdate(item), height),
@@ -298,21 +338,6 @@ func getExtValueItemWhiteListStatus(oracle: Address, account: String) = {
         )
     }
     }
-#Byzantyne protocol
-#let buyerPub = extract(getString(this, "buyer"))
-#let sellerPub = extract(getString(this, "seller"))
-#let verificationHash = extract(getBinary(this, "verificationHash"))
-#let blockUnlocked = extract(getInteger(this, "blockUnlocked"))
-   #match(i)   
-    #  {
-     #     case t : TransferTransaction =>  sigVerify(t.bodyBytes, t.proofs[0], fromBase58String(buyerPub)) ||
-      #                                      (sigVerify(i.bodyBytes, i.proofs[0], fromBase58String(sellerPub)) && ((height > blockUnlocked) || (keccak256(t.attachment) == verificationHash)))
-       #     case _ => false
-      #else{            let currentAmount = match getInteger(this, account){            case a:Int => a   case _ => 0
-       #}        let newAmount = currentAmount + pmt.amount
-       #}
-#TransferSet([ScriptTransfer(addressFromStringValue(address), pmt.amount, unit)])
-
 ##Dispute Escrow
 @Callable(i)
     func disputeEscrow(item: String) = {
@@ -483,74 +508,5 @@ func getExtValueItemWhiteListStatus(oracle: Address, account: String) = {
         ])
     }
 }
-@Callable(i)
-func userupdate(data: String, type: String) = {
-    let account = toBase58String(i.caller.bytes)
-    let accountStatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, account)
-    if (accountStatus == BLACKLISTED) then throw("your account is blacklisted")
-    else if (accountStatus != WHITELISTED || accountStatus != ADMIN || accountStatus != MODERATOR) then throw("your account is not authorized to change status")
-    else if (type == ADMIN && accountStatus != ADMIN) then throw("an ADMIN account can be created by another ADMIN only")
-    else if (type == MODERATOR && (accountStatus != ADMIN || accountStatus != MODERATOR)) then throw("a MODERATOR account can be created by an ADMIN only")
-    else 
-    WriteSet([
-        DataEntry(getKeyWhitelistBio(account), data),
-        DataEntry(getKeyWhitelistStatus(account), 
-        if (type == MODERATOR) then MODERATOR 
-        else if (type == ADMIN) then ADMIN 
-        else WHITELISTED)
-    ])
-}
-@Callable(i)
-func signupbylink(data: String) = {
-    let account = toBase58String(i.caller.bytes)
-    let accountStatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, account)
-    if (accountStatus != INVITEDADMIN || accountStatus != INVITEDMODERATOR || accountStatus != INVITED)
-        then throw("Referral invite needed. Current status: " + accountStatus + ", key:" + getKeyWhitelistStatus(account) + ", account:" + account)
-    else {
-        WriteSet([
-            DataEntry(getKeyWhitelistBio(account), data),
-            DataEntry(getKeyWhitelistBlock(account), height),
-            if (accountStatus == INVITEDADMIN) then  DataEntry(getKeyWhitelistStatus(account), ADMIN)
-            else if (accountStatus == INVITEDMODERATOR) then DataEntry(getKeyWhitelistStatus(account), MODERATOR)
-            else DataEntry(getKeyWhitelistStatus(account), WHITELISTED)
-        ])
-    }
-}
-@Callable(i)
-func signup(data: String) = {
-    let account = toBase58String(i.caller.bytes)
-    let accountStatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, account)
-    if (accountStatus == BLACKLISTED)
-        then throw("your account has been blacklisted")
-    else if (accountStatus != NONE)
-        then throw("Your account is already registered. Current status: " + accountStatus + ", key:" + getKeyWhitelistStatus(account) + ", account:" + account)
-    else {
-        WriteSet([
-            DataEntry(getKeyWhitelistBio(account), data),
-            DataEntry(getKeyWhitelistBlock(account), height),
-            DataEntry(getKeyWhitelistStatus(account), WHITELISTED)
-        ])
-    }
-}
-
-@Callable(i)
-func reportProject(item: String, data: String) = {
-    let account = toBase58String(i.caller.bytes)
-    WriteSet([
-        DataEntry(getKeyItemAccReportData(item, account), data)
-    ])
-}
 
 
-@Callable(i)
-func reportUser(user: String, data: String) = {
-    let account = toBase58String(i.caller.bytes)
-    let accountStatus = getExtValueItemWhiteListStatus(oracleWhiteListAddress, account)
-    if (accountStatus != ADMIN || accountStatus != MODERATOR)
-    then throw("just and ADMIN or MODERATOR can report an user")
-    else
-    WriteSet([
-        DataEntry(getKeyItemAccReportData(user, account), data),
-        DataEntry(getKeyWhitelistStatus(user), BLACKLISTED)
-    ])
-}
