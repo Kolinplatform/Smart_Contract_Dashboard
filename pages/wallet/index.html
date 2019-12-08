@@ -450,7 +450,21 @@ document.getElementById("percentageKolinHolder").innerHTML = ((obj.balance/30000
                               <i class="mdi mdi-shield-outline text-white"></i>
                             </span>
                           </div>
-                          <input type="text" class="form-control" placeholder="Add recipient Waves address" id="RecipientWavesAddress">
+                          <input type="text" class="form-control" placeholder="Add recipient Waves address" id="RecipientWavesAddress" onchange="verify()">
+                          <script>
+                            function verify(){
+                              var WavesAddress = document.getElementById("RecipientWavesAddress").value;
+                              if(WavesAddress.length == 35)
+                                {  	
+                                  return true;  	
+                                }
+                              else
+                                  {  	
+                              alert("A WavesAddress should be 35 characters long not " + WavesAddress.length + ". Please checked entered address");  		
+                                    return false;  	
+                                  }  
+                            }
+                          </script>
                        </div>
 					  <div class="input-group col-xs-12">
                             <div class="input-group-prepend bg-info">
@@ -549,6 +563,7 @@ document.getElementById("percentageKolinHolder").innerHTML = ((obj.balance/30000
   <!-- End plugin js for this page-->
   <!-- inject:js -->
   <script src="../../js/off-canvas.js"></script>
+  <script src="../../js/dashboard.js"></script>
   <!-- <script src="../../js/misc.js"></script>-->
 
   <!-- endinject -->

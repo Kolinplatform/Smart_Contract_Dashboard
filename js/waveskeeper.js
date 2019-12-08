@@ -36,7 +36,7 @@
 				  x.preventDefault();}
 //Sign transference with Waveskeeper
 function sendkolin(){
-	var WavesAddress = document.getElementById("WavesAddress").value;
+	var WavesAddress = document.getElementById("RecipientWavesAddress").value;
 	var Amount = document.getElementById("Amount").value;
 	const txData = {
            type: 4,
@@ -78,14 +78,16 @@ function lease(){WavesKeeper.signTransaction({
    });}
 
 //buykolin
-var btotal = document.getElementById("btotal").value;
-var bprice = document.getElementById("bprice").value;
-var bamount = document.getElementById("bamount").value;
-function buybtckolin(){WavesKeeper.signOrder({
+
+function buybtckolin(){
+    var btotal = document.getElementById("btotal").value;
+    var bprice = document.getElementById("bprice").value;
+    var bamount = document.getElementById("bamount").value;
+    WavesKeeper.signOrder({
 	
         type: 1002,
         data: {
-             matcherPublicKey: "7kPFrHDiGw1rCm7LPszuECwWYL3dMf6iMifLRDJQZMzy",
+             matcherPublicKey: "9cpfKN9suPNvfeUNphzxXMjcnn974eme8ZhWUjaktzU5",
              orderType: "buy",
              expiration: Date.now() + 100000,
              amount: {
@@ -108,10 +110,12 @@ function buybtckolin(){WavesKeeper.signOrder({
    });}
 
 //sellkolin
-var stotal = document.getElementById("stotal").value;
+
+function sellbtckolin(){
+    var stotal = document.getElementById("stotal").value;
 var sprice = document.getElementById("sprice").value;
 var samount = document.getElementById("samount").value;
-function sellbtckolin(){WavesKeeper.signOrder({
+    WavesKeeper.signOrder({
         type: 1002,
         data: {
              matcherPublicKey: "7kPFrHDiGw1rCm7LPszuECwWYL3dMf6iMifLRDJQZMzy",

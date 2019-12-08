@@ -285,6 +285,7 @@ window.onload = function height() {
             profilePicture[i].src = 'https://kolinplatform.com/avatar/avatar.png';
           };
       WavesAddress = state.account.address;
+      document.getElementById("WavesAddress").value = WavesAddress;
       getbalance();
       console.log("you are already logged in");
     })
