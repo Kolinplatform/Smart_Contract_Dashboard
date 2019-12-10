@@ -98,7 +98,7 @@ func signup(data: String) = {
         WriteSet([
             DataEntry(getExtKeyItemWhiteListStatus(data), data),
             DataEntry(getExtKeyItemWhiteListStatusBlock(account), height),
-            DataEntry(getExtKeyItemWhiteListStatus(account), WHITELISTED)
+            DataEntry(getExtKeyItemWhiteListStatus(account), WHITELISTED),
             DataEntry(getKeyTotalRegistered(verifier), getValueTotalRegistered(verifier)+1)
         ])
     }

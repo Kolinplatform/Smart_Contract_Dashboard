@@ -478,6 +478,8 @@ func getExtValueItemWhiteListStatus(oracle: Address, account: String) = {
                 DataEntry(getKeyItemLastUpdate(item), height),
                  DataEntry(getKeyUserTrnVal(getValueItemTranslator(item)), getValueUserTrnVal(getValueItemTranslator(item))+1)
             ]),
+            TransferSet([ScriptTransfer(addressFromStringValue(caller), amount, fromBase58String(assetID))])
+        )
         else if (caller == getValueItemTranslator(item)) then
         ScriptResult(
             WriteSet([ 
@@ -489,7 +491,7 @@ func getExtValueItemWhiteListStatus(oracle: Address, account: String) = {
             ]),
             TransferSet([ScriptTransfer(addressFromStringValue(caller), amount, fromBase58String(assetID))])
         )
-        else then throw("just registered translator or author can perform a withdraw")
+        else throw("just registered translator or author can perform a withdraw")
 }
 
 
