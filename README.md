@@ -14,3 +14,6 @@ Testnet: 10 Sept 2019
 Mainnet: 09 Dec 2019 (updated)
 
 
+You can access this live deployment [here](https://kolinplatform.github.io/WavesGrants/index.html)
+
+Bug reporting is more than welcome! :) 
