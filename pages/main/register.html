@@ -35,7 +35,7 @@
                               <path fill="#ffffff" d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
                           </svg>
                         </span> 
-                    <input type="text" class="form-control" placeholder="Username" maxlength="30" required>
+                    <input type="text" class="form-control" placeholder="Username" maxlength="30" required id="username">
                     <div class="input-group-append">
                       <span class="input-group-text">
                         <i class="mdi mdi-check-circle-outline"></i>
@@ -50,7 +50,7 @@
                               <path fill="#ffffff" d="M7.5,15C8.63,15 9.82,15.26 11.09,15.77C12.35,16.29 13,16.95 13,17.77V20H2V17.77C2,16.95 2.65,16.29 3.91,15.77C5.18,15.26 6.38,15 7.5,15M13,13H22V15H13V13M13,9H22V11H13V9M13,5H22V7H13V5M7.5,8A2.5,2.5 0 0,1 10,10.5A2.5,2.5 0 0,1 7.5,13A2.5,2.5 0 0,1 5,10.5A2.5,2.5 0 0,1 7.5,8Z" />
                           </svg>
                         </span> 
-                    <input type="text" class="form-control" placeholder="Brief biography (max 50 characters)" maxlength="50" required>
+                    <input type="text" class="form-control" placeholder="Brief biography (max 50 characters)" maxlength="50" required id="bio">
                     <div class="input-group-append">
                       <span class="input-group-text">
                         <i class="mdi mdi-check-circle-outline"></i>
@@ -65,7 +65,7 @@
                               <path fill="#ffffff" d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z" />
                           </svg>
                       </span> 
-                    <input type="text" class="form-control" placeholder="Twitter Link" value="https://twitter.com/">
+                    <input type="text" class="form-control" placeholder="Twitter Link" value="https://twitter.com/" id="twitterLink">
                     <div class="input-group-append">
                       <span class="input-group-text">
                         <i class="mdi mdi-check-circle-outline"></i>
@@ -80,7 +80,7 @@
                                 <path fill="#ffffff" d="M21,21H17V14.25C17,13.19 15.81,12.31 14.75,12.31C13.69,12.31 13,13.19 13,14.25V21H9V9H13V11C13.66,9.93 15.36,9.24 16.5,9.24C19,9.24 21,11.28 21,13.75V21M7,21H3V9H7V21M5,3A2,2 0 0,1 7,5A2,2 0 0,1 5,7A2,2 0 0,1 3,5A2,2 0 0,1 5,3Z" />
                             </svg>
                           </span> 
-                      <input type="text" class="form-control" placeholder="LinkedIn link" value="https://www.linkedin.com/in/">
+                      <input type="text" class="form-control" placeholder="LinkedIn link" value="https://www.linkedin.com/in/" id="linkedinLink">
                       <div class="input-group-append">
                         <span class="input-group-text">
                           <i class="mdi mdi-check-circle-outline"></i>
@@ -95,7 +95,7 @@
                                 <path fill="#ffffff" d="M17,2V2H17V6H15C14.31,6 14,6.81 14,7.5V10H14L17,10V14H14V22H10V14H7V10H10V6A4,4 0 0,1 14,2H17Z" />
                             </svg>
                           </span> 
-                        <input type="text" class="form-control" placeholder="Facebook link" value="https://www.facebook.com/">
+                        <input type="text" class="form-control" placeholder="Facebook link" value="https://www.facebook.com/" id="facebookLink">
                         <div class="input-group-append">
                           <span class="input-group-text">
                             <i class="mdi mdi-check-circle-outline"></i>
@@ -110,7 +110,7 @@
                                   <path fill="#ffffff" d="M9.78,18.65L10.06,14.42L17.74,7.5C18.08,7.19 17.67,7.04 17.22,7.31L7.74,13.3L3.64,12C2.76,11.75 2.75,11.14 3.84,10.7L19.81,4.54C20.54,4.21 21.24,4.72 20.96,5.84L18.24,18.65C18.05,19.56 17.5,19.78 16.74,19.36L12.6,16.3L10.61,18.23C10.38,18.46 10.19,18.65 9.78,18.65Z" />
                               </svg>
                           </span>  
-                          <input type="text" class="form-control" placeholder="Telegram link" value="https://t.me/">
+                          <input type="text" class="form-control" placeholder="Telegram link" value="https://t.me/" id="telegramLink">
                           <div class="input-group-append">
                             <span class="input-group-text">
                               <i class="mdi mdi-check-circle-outline"></i>
@@ -125,7 +125,7 @@
                                       <path fill="#ffffff" d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" />
                                   </svg>
                                 </span> 
-                            <input type="text" class="form-control" placeholder="Instagram link" value="https://www.instagram.com/">
+                            <input type="text" class="form-control" placeholder="Instagram link" value="https://www.instagram.com/" id="instagramLink">
                             <div class="input-group-append">
                               <span class="input-group-text">
                                 <i class="mdi mdi-check-circle-outline"></i>
@@ -141,7 +141,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <button class="btn btn-primary submit-btn btn-block">Register</button>
+                  <button class="btn btn-primary submit-btn btn-block" onclick="signup()">Register</button>
                 </div>
                 <div class="text-block text-center my-3">
                   <span class="text-small font-weight-semibold">Already have and account?</span>
@@ -175,10 +175,52 @@
   <!-- endinject -->
   <!-- inject:js -->
   <script src="../../js/off-canvas.js"></script>
-  <script src="../../js/misc.js"></script>
+  <!--<script src="../../js/misc.js"></script>-->
   <!-- endinject -->
   <script>
-  
+    let USERNAME = document.getElementById("username").value;
+    let BIOGRAPHY = document.getElementById("bio").value;
+    let TWITTER = document.getElementById("twitterLink").value;
+    let LINKEDIN = document.getElementById("linkedinLink").value;
+    let FACEBOOK = document.getElementById("facebookLink").value;
+    let TELEGRAM = document.getElementById("telegramLink").value;
+    let INSTAGRAM = document.getElementById("instagramLink").value; 
+
+  function signup() {
+  datajson = {
+    "Username": USERNAME,
+"Bio": BIOGRAPHY,
+"Twitter": TWITTER,
+"LinkedIn": LINKEDIN,
+"Facebook": FACEBOOK,
+"Telegram": TELEGRAM,
+"Instagram": INSTAGRAM,
+}
+WavesKeeper.signAndPublishTransaction({
+    type: 16,
+    data: {
+    fee: {
+      "tokens": "10000",
+      "assetId": "FiKspxSpkpzT4pMUA9ccZkbJmVXTdu4JhFDXNNXr5noW"
+    },
+    dApp: '3P8YjrYqMjLqZfVqraRa69R1HKvv5gKmF9P',
+    call: {
+            function: 'signup',
+            args: [
+                      {type: "string", key: "data", value: JSON.stringify(datajson)},
+                    ],
+      }, payment: [//{assetId: workToSubmitAssetIDChosen, tokens: workToSubmitAmountToPay}
+      ],
+}
+})
+    .then(tx => {
+      console.log("Your account has been succesfuly registered " + USERNAME);
+    })
+    .catch(error => {
+      console.error("Something went wrong", error);
+    });
+}
+
   </script>
 </body>
 
