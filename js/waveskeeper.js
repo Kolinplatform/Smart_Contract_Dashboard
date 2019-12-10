@@ -18,7 +18,7 @@
         data: "Generated string from server",
         name: "Kolin Private v.0.1",
         icon: "images/favicon.ico",
-        referrer: "https://demo.kolinplatform.com",
+        referrer: "https://kolinplatform.github.io/WavesGrants/",
         successPath: "index.html"
     };
 				 
