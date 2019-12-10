@@ -403,7 +403,7 @@ WavesKeeper.signAndPublishTransaction({
             function: 'submitTranslation',
             args: [
                       {type: "string", key: "document", value: workToSubmitName},
-                      {type: "string", key: "data", value: datajson},
+                      {type: "string", key: "data", value: JSON.stringify(datajson)},
                       {type: "string", key: "assetID", value: workToSubmitAssetID},
                       {type: "integer", key: "futureBlocks", value: workToSubmitFutureBlocks},
                       {type: "integer", key: "wordCount" , value: workToSubmitWords},
