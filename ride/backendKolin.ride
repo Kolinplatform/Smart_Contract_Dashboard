@@ -470,18 +470,26 @@ func getExtValueItemWhiteListStatus(oracle: Address, account: String) = {
         else if (height < getValueItemDueFor(item)) then throw("Deadline (" + toString(getValueItemDueFor(item)) +") has not finished yet. Current height: " + toString(height))
         else if (getKeyItemStatus(item) == "dispute in progress") then throw("This work is currently under dispute")
         #else if (keccak256(i.attachment) != verificationHash) then throw("Payment HASH different from translation work registers")
-        else ScriptResult(
+        else if (caller == getValueItemAuthor(item)) then
+        ScriptResult(
             WriteSet([ 
                 DataEntry(getKeyItemBalance(item), 0),
                 DataEntry(getKeyItemStatus(item), "money withdrawn by " + caller),
-                DataEntry(getKeyItemLastUpdate(item), height)
-                if (caller == getValueItemTranslator(item)) then 
-                DataEntry(getKeyUserCusVal(getValueItemAuthor(item)), getValueUserCusVal(getValueItemAuthor(item))+1)
-                else if (caller == getValueItemAuthor(item)) then 
+                DataEntry(getKeyItemLastUpdate(item), height),
+                 DataEntry(getKeyUserTrnVal(getValueItemTranslator(item)), getValueUserTrnVal(getValueItemTranslator(item))+1)
+            ]),
+        else if (caller == getValueItemTranslator(item)) then
+        ScriptResult(
+            WriteSet([ 
+                DataEntry(getKeyItemBalance(item), 0),
+                DataEntry(getKeyItemStatus(item), "money withdrawn by " + caller),
+                DataEntry(getKeyItemLastUpdate(item), height),
+                DataEntry(getKeyUserCusVal(getValueItemAuthor(item)), getValueUserCusVal(getValueItemAuthor(item))+1),
                 DataEntry(getKeyUserTrnVal(getValueItemTranslator(item)), getValueUserTrnVal(getValueItemTranslator(item))+1)
             ]),
             TransferSet([ScriptTransfer(addressFromStringValue(caller), amount, fromBase58String(assetID))])
         )
+        else then throw("just registered translator or author can perform a withdraw")
 }
 
 
