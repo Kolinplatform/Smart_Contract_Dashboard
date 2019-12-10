@@ -304,7 +304,7 @@ function wavesKeeper() {
     function login(x) {
       const authData = {
         data: "",
-        name: "Kolin Locker 1.0",
+        name: "Kolin Private 1.0",
         icon:
           "https://raw.githubusercontent.com/Kolinplatform/demo/master/images/Kolin-png.png"
       };
