@@ -1,4 +1,4 @@
-# WavesGrants
+# Kolin platform dashboard
 
 1. Payment system for freelancers hiring (WAVES, WUSD, WEUR, WBTC) through @Callable functions
 2. Escrow on dApp smart contract (using Byzantine protocol required)
